@@ -1,0 +1,8 @@
+.vs/
+*.dll
+*.pdb
+*.suo
+*.cache
+*.exe
+packages/
+
