@@ -4,5 +4,8 @@
 *.suo
 *.cache
 *.exe
+*.xml
+MVC_Practice/bin/roslyn/
+MVC_Practice/bin/ru/
 packages/
 

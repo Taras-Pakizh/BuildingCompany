@@ -1,0 +1,22 @@
+﻿@using MVC_Practice.Models
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Employee
+
+@{
+    IEnumerable<Employee> employee = new List<Employee>() { Model };
+}
+
+<h2>Delete this employee?</h2>
+
+<table class="table">
+    @EmployeeHelpers.EmployeeList(employee, true)
+</table>
+
+<form method="post" action="/Employees/Delete" class="form-horizontal">
+    <input type="hidden" name="id" value="@Model.employeeID"/>
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>
+

@@ -1,0 +1,61 @@
+﻿@using MVC_Practice.Models
+
+@helper GenderToString(string gender)
+{
+    if (gender == "M")
+    {
+        <td>Male</td>
+    }
+    else if (gender == "F")
+    {
+        <td>Female</td>
+    }
+    else
+    {
+        <td>Unknown</td>
+    }
+}
+
+@helper EmployeeList(IEnumerable<Employee> Model, bool IsReadonly)
+{
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Position</th>
+        <th>Birthday</th>
+        <th>Gender</th>
+        <th>Department</th>
+        @if (!IsReadonly)
+        {
+            <th></th>
+            <th></th>
+        }
+        
+    </tr>
+    foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.firstname</td>
+        <td>@item.lastname</td>
+        <td>@item.Position1.positionName</td>
+        <td>@item.birthday</td>
+        @GenderToString(item.gender)
+        <td>@item.Department1.dname</td>
+        @if (!IsReadonly)
+        {
+            <td>
+                <form class="form-inline" method="get" action="/Employees/Delete">
+                    <input type="hidden" value="@item.employeeID" name="id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" method="get" action="/Employees/Update">
+                    <input type="hidden" value="@item.employeeID" name="id" />
+                    <input type="submit" value="Update" class="btn btn-warning" />
+                </form>
+            </td>
+        }
+    </tr>
+    }
+}
