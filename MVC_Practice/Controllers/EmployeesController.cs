@@ -23,6 +23,7 @@ namespace MVC_Practice.Controllers
         }
 
         // GET: Employees
+        [Authorize(Roles = "admin, HR")]
         public ActionResult Index()
         {
             ViewBag.positions = positions;
