@@ -1,0 +1,17 @@
+﻿@using MVC_Practice.Models
+@model EmployeeOrder
+
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order</h2>
+
+@EmployeeOrderHelpers.DetailedEmployeeOrder(Model)
+
+<div class="container-fluid">
+    <form class="form-inline" method="get" action="/EmployeeOrders/Index">
+        <input type="submit" value="OK" class="btn btn-primary" />
+    </form>
+</div>

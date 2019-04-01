@@ -22,6 +22,23 @@ namespace MVC_Practice.Controllers
             }
         }
 
+        private ApplicationRoleManager RoleManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>(); }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult> Account()
+        {
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var roles = await UserManager.GetRolesAsync(user.Id);
+
+            ViewBag.roles = roles;
+
+            return View(user);
+        }
+
         [HttpGet]
         public ActionResult Register()
         {

@@ -17,39 +17,42 @@
         <div class="container-fluid collapse" id="AddCollapse">
             <form method="post" action="/Employees/Create" name="AddForm" class="form-inline">
                 <div class="row">
-                    <div class="form-group col-lg-2">
+                    <div class="form-group">
                         <input class="form-control" type="text" name="firstName" placeholder="First name" required>
                     </div>
 
-                    <div class="form-group col-lg-2">
+                    <div class="form-group">
                         <input class="form-control" type="text" name="lastName" placeholder="Last name" required>
                     </div>
 
-                    <div class="form-group col-lg-2">
+                    <div class="checkbox">
                         @Html.DropDownList("position", ViewBag.positions as SelectList, new { @class = "form-control"})
                     </div>
 
-                    <div class="form-group col-lg-2">
+                    <div class="form-group">
                         <input class="form-control" type="date" name="birthday" required>
                     </div>
 
-                    <div class="form-group col-lg-2">
+                    <div class="form-group">
                         <select name="gender" class="form-control">
-                            <option value="">Gender</option>
                             <option value="F">Female</option>
                             <option value="M">Male</option>
                         </select>
                     </div>
 
-                    <div class="form-group col-lg-2">
+                    <div class="checkbox">
                         @Html.DropDownList("department", ViewBag.departments as SelectList, new { @class = "form-control" })
                     </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Add" class="btn btn-primary form-control" />
+                    </div>
                 </div>
-                <input type="submit" value="Add" class="btn btn-primary" />
             </form>
-        </div>
-        
+        </div>  
 </div>
+
+<br />
 
 <table class="table">
     @EmployeeHelpers.EmployeeList(Model, false)

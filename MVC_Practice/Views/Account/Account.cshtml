@@ -1,0 +1,16 @@
+﻿@model MVC_Practice.Models.Identity.ApplicationUser
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Account</h2>
+
+<h1>User Name: @Model.UserName</h1>
+<h1>User Email: @Model.Email</h1>
+<h1>Roles:</h1>
+@foreach(var role in ViewBag.roles)
+{
+    <p>@role</p>
+}
+<h1>Year: @Model.Year</h1>

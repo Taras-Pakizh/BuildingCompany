@@ -1,0 +1,58 @@
+﻿@using MVC_Practice.Models
+@model IEnumerable<EmployeeOrder>
+
+@{
+    ViewBag.Title = "Employye orders panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employee orders</h2>
+
+<div class="container-fluid">
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#AddCollapse">Add</button>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid collapse" id="AddCollapse">
+        <form method="post" action="/EmployeeOrders/Add" name="AddForm" class="form-inline">
+            <div class="row">
+
+                <div class="form-group">
+                    <input class="form-control" type="date" name="orderDate" required>
+                </div>
+
+                <div class="checkbox">
+                    @Html.DropDownList("Employee", ViewBag.employees as SelectList, new { @class = "form-control" })
+                </div>
+
+                <div class="checkbox">
+                    @Html.DropDownList("orderType", ViewBag.orders as SelectList, new { @class = "form-control" })
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <label for="orderDesription">Description</label>
+                    <textarea class="form-control" name="orderDescription" rows="5" cols="50" required>
+                        
+                    </textarea>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary form-control" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<table class="table">
+    @EmployeeOrderHelpers.EmployeeOrdersList(Model, false)
+</table>

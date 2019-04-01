@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MVC_Practice.Models;
+using MVC_Practice.Repository;
 
 namespace MVC_Practice.Controllers
 {
+    [Authorize(Roles = "admin, HR")]
     public class EmployeesController : Controller
     {
         private MyModels context;
+        
 
         private SelectList positions;
         private SelectList departments;
@@ -18,12 +21,11 @@ namespace MVC_Practice.Controllers
         public EmployeesController():base()
         {
             context = new MyModels();
+           
             positions = new SelectList(context.Positions, "positionID", "positionName");
             departments = new SelectList(context.Departments, "departmentID", "dname");
         }
 
-        // GET: Employees
-        [Authorize(Roles = "admin, HR")]
         public ActionResult Index()
         {
             ViewBag.positions = positions;
@@ -33,11 +35,20 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Employee employee)
+        public async Task<ActionResult> Create(Employee employee)
         {
             employee.employeeID = context.Employees.Max(x => x.employeeID) + 1;
-            context.Employees.Add(employee);
-            context.SaveChanges();
+            using(var repository = new Repository<Employee>())
+            {
+                if (repository.Add(employee))
+                {
+                    await repository.SaveAsync();
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
 
             return RedirectToAction("Index");
         }
@@ -52,14 +63,21 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int? id)
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
-            var remove = context.Employees.Find(id);
-            if (remove == null)
+            if (id == null)
                 return HttpNotFound();
-            context.Employees.Remove(remove);
-            context.SaveChanges();
-
+            using (var repository = new Repository<Employee>())
+            {
+                if(await repository.DeleteAsync((int)id))
+                {
+                    await repository.SaveAsync();
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
             return RedirectToAction("Index");
         }
 
@@ -84,8 +102,17 @@ namespace MVC_Practice.Controllers
         {
             if (employee == null)
                 return HttpNotFound();
-            context.Entry(employee).State = System.Data.Entity.EntityState.Modified;
-            context.SaveChanges();
+            using(var repository = new Repository<Employee>())
+            {
+                if (repository.Update(employee))
+                {
+                    repository.Save();
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
             return RedirectToAction("Index");
         }
     }

@@ -184,6 +184,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EmployeeOrdersController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Models\MyDB\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\MyDB\sysdiagram.cs" />
+    <Compile Include="Repository\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -229,6 +231,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Code\EmployeeHelpers.cshtml" />
+    <Content Include="App_Code\EmployeeOrderHelpers.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -259,6 +262,9 @@
     <Content Include="Views\Employees\Update.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Account.cshtml" />
+    <Content Include="Views\EmployeeOrders\Index.cshtml" />
+    <Content Include="Views\EmployeeOrders\Open.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

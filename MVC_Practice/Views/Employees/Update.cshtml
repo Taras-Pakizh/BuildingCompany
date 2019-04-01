@@ -7,44 +7,50 @@
 
 <h2>Update</h2>
 
-<form method="post" action="/Employees/Update" class="form-horizontal">
-    <input type="hidden" name="employeeID" value="@Model.employeeID" />
+<form method="post" action="/Employees/Update" class="form-inline">
+    <div class="row">
+        <input type="hidden" name="employeeID" value="@Model.employeeID" />
 
-    <div class="form-group col-lg-2">
-        <input class="form-control" type="text" name="firstName" value="@Model.firstname" required>
+        <div class="form-group">
+            <input class="form-control" type="text" name="firstName" value="@Model.firstname" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="lastName" value="@Model.lastname" required>
+        </div>
+
+        <div class="checkbox">
+            @Html.DropDownList("position", ViewBag.positions as SelectList, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="datetime" name="birthday" value="@Model.birthday" required>
+        </div>
+
+        <div class="checkbox">
+            <select name="gender" class="form-control">
+                @if (Model.gender == "F")
+                {
+                    <option value="F" selected>Female</option>
+                    <option value="M">Male</option>
+                }
+                else
+                {
+                    <option value="M" selected>Male</option>
+                    <option value="F">Female</option>
+                }
+            </select>
+        </div>
+
+        <div class="checkbox">
+            @Html.DropDownList("department", ViewBag.departments as SelectList, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-warning" />
+        </div>
+
+        
     </div>
-
-    <div class="form-group col-lg-2">
-        <input class="form-control" type="text" name="lastName" value="@Model.lastname" required>
-    </div>
-
-    <div class="form-group col-lg-2">
-        @Html.DropDownList("position", ViewBag.positions as SelectList, new { @class = "form-control" })
-    </div>
-
-    <div class="form-group col-lg-2">
-        <input class="form-control" type="datetime" name="birthday" value="@Model.birthday" required>
-    </div>
-
-    <div class="form-group col-lg-2">
-        <select name="gender" class="form-control">
-            @if (Model.gender == "F")
-            {
-                <option value="F" selected>Female</option>
-                <option value="M">Male</option>
-            }
-            else
-            {
-                <option value="M" selected>Male</option>
-                <option value="F">Female</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group col-lg-2">
-        @Html.DropDownList("department", ViewBag.departments as SelectList, new { @class = "form-control" })
-    </div>
-
-    <input type="submit" value="Update" class="btn btn-warning" />
 </form>
 
