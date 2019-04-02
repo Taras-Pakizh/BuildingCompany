@@ -1,0 +1,37 @@
+﻿@using MVC_Practice.Models
+
+@helper OrderTypesList(IEnumerable<OrderType> Model, bool IsReadonly)
+{
+    <tr>
+        <th>Order Type</th>
+
+        @if (!IsReadonly)
+        {
+            <th></th>
+            <th></th>
+        }
+    </tr>
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.orderName</td>
+
+
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/OrderTypes/Delete">
+                        <input type="hidden" value="@item.orderTypeID" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/OrderTypes/Update">
+                        <input type="hidden" value="@item.orderTypeID" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+            }
+        </tr>
+    }
+}

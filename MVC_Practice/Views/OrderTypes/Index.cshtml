@@ -1,0 +1,41 @@
+﻿@using MVC_Practice.Models
+@model IEnumerable<OrderType>
+@{
+    ViewBag.Title = "Order types";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order types</h2>
+
+
+<div class="container-fluid">
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#AddCollapse">Add</button>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid collapse" id="AddCollapse">
+        <form method="post" action="/OrderTypes/Add" name="AddForm" class="form-inline">
+            <div class="row">
+
+                <div class="form-group">
+                    <input class="form-control" type="text" name="orderName" placeholder="Order Type" required>
+                </div>
+
+
+
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary form-control" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<table class="table">
+    @OrderTypesHelpers.OrderTypesList(Model, false)
+</table>

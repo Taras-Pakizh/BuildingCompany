@@ -184,9 +184,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeeOrdersController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderTypesController.cs" />
+    <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.Designer.cs">
       <DependentUpon>201901051630134_InitialCreate.cs</DependentUpon>
@@ -209,6 +212,7 @@
     <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
     <Compile Include="Models\Identity\RegisterModel.cs" />
+    <Compile Include="Models\MyDB\ModelValidator.cs" />
     <Compile Include="Models\MyDB\MyModels.cs" />
     <Compile Include="Models\MyDB\OrderType.cs" />
     <Compile Include="Models\MyDB\Position.cs" />
@@ -232,6 +236,9 @@
     </Content>
     <Content Include="App_Code\EmployeeHelpers.cshtml" />
     <Content Include="App_Code\EmployeeOrderHelpers.cshtml" />
+    <Content Include="App_Code\PositionsHelpers.cshtml" />
+    <Content Include="App_Code\DepartmentsHelpers.cshtml" />
+    <Content Include="App_Code\OrderTypesHelpers.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -265,6 +272,17 @@
     <Content Include="Views\Account\Account.cshtml" />
     <Content Include="Views\EmployeeOrders\Index.cshtml" />
     <Content Include="Views\EmployeeOrders\Open.cshtml" />
+    <Content Include="Views\EmployeeOrders\Delete.cshtml" />
+    <Content Include="Views\EmployeeOrders\Update.cshtml" />
+    <Content Include="Views\Positions\Index.cshtml" />
+    <Content Include="Views\Positions\Delete.cshtml" />
+    <Content Include="Views\Positions\Update.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Update.cshtml" />
+    <Content Include="Views\OrderTypes\Index.cshtml" />
+    <Content Include="Views\OrderTypes\Update.cshtml" />
+    <Content Include="Views\OrderTypes\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

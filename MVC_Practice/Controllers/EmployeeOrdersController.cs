@@ -45,9 +45,7 @@ namespace MVC_Practice.Controllers
         public ActionResult Add(EmployeeOrder order)
         {
             order.orderID = context.EmployeeOrders.Max(x => x.orderID) + 1;
-            order.orderDescription = order.orderDescription.Trim();
-            if (order.orderDescription.Length > 50)
-                order.orderDescription = order.orderDescription.Substring(0, 49);
+            order = order.Validate();
             using(var repository = new Repository<EmployeeOrder>())
             {
                 if (repository.Add(order))
@@ -70,27 +68,67 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete()
+        public ActionResult Delete(int? id)
         {
-            return View();
+            var order = context.EmployeeOrders.Find(id);
+            if (employees == null)
+                return HttpNotFound();
+            return View(order);
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed()
+        public async Task<ActionResult> DeleteConfirmed(int? id)
         {
-            return View();
+            if (id == null)
+                return HttpNotFound();
+            using (var repository = new Repository<EmployeeOrder>())
+            {
+                if (await repository.DeleteAsync((int)id))
+                {
+                    await repository.SaveAsync();
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult Update()
+        public ActionResult Update(int? id)
         {
-            return View();
+            var order = context.EmployeeOrders.Find(id);
+            if (order == null)
+                return HttpNotFound();
+
+            orders.Single(x => x.Value == order.orderType.ToString()).Selected = true;
+            employees.Single(x => x.Value == order.Employee.ToString()).Selected = true;
+
+            ViewBag.orders = orders;
+            ViewBag.employees = employees;
+
+            return View(order);
         }
 
         [HttpPost, ActionName("Update")]
-        public ActionResult UpdateConfirmed()
+        public ActionResult UpdateConfirmed(EmployeeOrder order)
         {
-            return View();
+            if (order == null)
+                return HttpNotFound();
+            order = order.Validate();
+            using (var repository = new Repository<EmployeeOrder>())
+            {
+                if (repository.Update(order))
+                {
+                    repository.Save();
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }

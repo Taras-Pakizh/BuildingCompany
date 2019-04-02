@@ -1,0 +1,28 @@
+﻿
+@using MVC_Practice.Models
+@model Department
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<form method="post" action="/Departments/Update" name="UpdateForm" class="form-inline">
+    <div class="row">
+
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="departmentID" value="@Model.departmentID" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="dname" placeholder="Department" value="@Model.dname" required>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-primary form-control" />
+        </div>
+
+    </div>
+</form>

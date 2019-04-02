@@ -1,0 +1,31 @@
+﻿@using MVC_Practice.Models
+@model Position
+
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<form method="post" action="/Positions/Update" name="UpdateForm" class="form-inline">
+    <div class="row">
+
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="positionID" value="@Model.positionID" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="positionName" placeholder="Position" value="@Model.positionName" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="number" name="salary" placeholder="Salary" value="@Model.salary" required>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-primary form-control" />
+        </div>
+
+    </div>
+</form>

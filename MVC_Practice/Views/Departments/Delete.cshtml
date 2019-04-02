@@ -1,0 +1,21 @@
+﻿@using MVC_Practice.Models
+@model Department
+@{
+    IEnumerable<Department> departments = new List<Department>() { Model };
+}
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete this department?</h2>
+
+<table class="table">
+    @DepartmentsHelpers.DepartmentsList(departments, true)
+</table>
+
+<form method="post" action="/Departments/Delete" class="form-horizontal">
+    <input type="hidden" name="id" value="@Model.departmentID" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>

@@ -1,0 +1,20 @@
+﻿@using MVC_Practice.Models
+@model Position
+@{
+    IEnumerable<Position> positions = new List<Position>() { Model };
+}
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete this position?</h2>
+
+<table class="table">
+    @PositionsHelpers.PositionsList(positions, true)
+</table>
+
+<form method="post" action="/Positions/Delete" class="form-horizontal">
+    <input type="hidden" name="id" value="@Model.positionID" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>

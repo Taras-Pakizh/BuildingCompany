@@ -1,0 +1,26 @@
+﻿@using MVC_Practice.Models
+@model OrderType
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<form method="post" action="/OrderTypes/Update" name="UpdateForm" class="form-inline">
+    <div class="row">
+
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="orderTypeID" value="@Model.orderTypeID" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="orderName" placeholder="Order type" value="@Model.orderName" required>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-primary form-control" />
+        </div>
+
+    </div>
+</form>
