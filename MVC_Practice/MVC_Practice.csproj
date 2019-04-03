@@ -190,6 +190,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderTypesController.cs" />
     <Compile Include="Controllers\PositionsController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.Designer.cs">
       <DependentUpon>201901051630134_InitialCreate.cs</DependentUpon>
@@ -239,6 +240,7 @@
     <Content Include="App_Code\PositionsHelpers.cshtml" />
     <Content Include="App_Code\DepartmentsHelpers.cshtml" />
     <Content Include="App_Code\OrderTypesHelpers.cshtml" />
+    <Content Include="App_Code\RolesHelpers.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -283,6 +285,9 @@
     <Content Include="Views\OrderTypes\Index.cshtml" />
     <Content Include="Views\OrderTypes\Update.cshtml" />
     <Content Include="Views\OrderTypes\Delete.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

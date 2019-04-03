@@ -4,16 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security;
 using MVC_Practice.Models;
+using MVC_Practice.Models.Identity;
 using MVC_Practice.Repository;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MVC_Practice.Controllers
 {
     [Authorize(Roles = "admin, HR")]
     public class EmployeesController : Controller
     {
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
         private MyModels context;
-        
 
         private SelectList positions;
         private SelectList departments;
@@ -26,10 +36,16 @@ namespace MVC_Practice.Controllers
             departments = new SelectList(context.Departments, "departmentID", "dname");
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             ViewBag.positions = positions;
             ViewBag.departments = departments;
+
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var roles = await UserManager.GetRolesAsync(user.Id);
+
+            ViewBag.userName = user.UserName;
+            ViewBag.role = roles[0];
 
             return View("~/Views/Employees/EmployeePanel.cshtml", context.Employees);
         }

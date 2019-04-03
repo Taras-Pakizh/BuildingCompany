@@ -14,6 +14,7 @@ namespace MVC_Practice.Controllers
 {
     public class AccountController : Controller
     {
+        #region IdentityManager
         private ApplicationUserManager UserManager
         {
             get
@@ -21,11 +22,18 @@ namespace MVC_Practice.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
-
         private ApplicationRoleManager RoleManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>(); }
         }
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+        #endregion
 
         [Authorize]
         [HttpGet]
@@ -67,13 +75,7 @@ namespace MVC_Practice.Controllers
             return View(model);
         }
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        
 
         [HttpGet]
         public ActionResult Login(string returnUrl)
@@ -116,5 +118,6 @@ namespace MVC_Practice.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Login");
         }
+        
     }
 }
