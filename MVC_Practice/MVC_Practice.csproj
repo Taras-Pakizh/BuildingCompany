@@ -191,6 +191,7 @@
     <Compile Include="Controllers\OrderTypesController.cs" />
     <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.Designer.cs">
       <DependentUpon>201901051630134_InitialCreate.cs</DependentUpon>
@@ -203,6 +204,7 @@
     <Compile Include="Models\Identity\ApplicationRole.cs" />
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\LoginModel.cs" />
+    <Compile Include="Models\Identity\UserRoleModel.cs" />
     <Compile Include="Models\MyDB\Department.cs" />
     <Compile Include="Models\MyDB\Employee.cs" />
     <Compile Include="Models\MyDB\EmployeeOrder.cs" />
@@ -241,6 +243,7 @@
     <Content Include="App_Code\DepartmentsHelpers.cshtml" />
     <Content Include="App_Code\OrderTypesHelpers.cshtml" />
     <Content Include="App_Code\RolesHelpers.cshtml" />
+    <Content Include="App_Code\UsersHelpers.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -288,6 +291,10 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
     <Content Include="Views\Roles\Update.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Update.cshtml" />
+    <Content Include="Views\Users\UpdateRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

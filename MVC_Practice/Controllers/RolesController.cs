@@ -26,7 +26,7 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddRole(ApplicationRole role)
+        public async Task<ActionResult> Add(ApplicationRole role)
         {
 
             IdentityResult result = await RoleManager.CreateAsync(new ApplicationRole()

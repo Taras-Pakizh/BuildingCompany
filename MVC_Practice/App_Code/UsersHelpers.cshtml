@@ -1,0 +1,45 @@
+﻿@using MVC_Practice.Models.Identity;
+
+
+@helper UsersList(IQueryable<ApplicationUser> Model, string[] roles, bool IsReadonly)
+{
+    <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Role</th>
+        @if (!IsReadonly)
+        {
+            <th></th>
+            <th></th>
+            <th></th>
+        }
+    </tr>
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td>@item.Email</td>
+            <td>@roles[i]</td>
+
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Users/Delete">
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Users/Update">
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+            }
+            @{ 
+                ++i;
+            }
+        </tr>
+    }
+}

@@ -1,0 +1,13 @@
+﻿@using MVC_Practice.Models.Identity;
+@model IQueryable<ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users</h2>
+
+<table class="table">
+    @UsersHelpers.UsersList(Model, ViewBag.roles, false)
+</table>

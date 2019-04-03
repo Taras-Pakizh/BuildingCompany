@@ -1,0 +1,48 @@
+﻿@using MVC_Practice.Models.Identity;
+@model ApplicationUser
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<form method="post" action="/Users/Update" name="AddForm" class="form-inline">
+    <div class="row">
+
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="Id" value="@Model.Id" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="UserName" value="@Model.UserName" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="email" name="Email" value="@Model.Email" required>
+        </div>
+
+        <div class="form-group">
+            <a class="form-control">@ViewBag.role[0]</a>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-primary form-control" />
+        </div>
+
+    </div>
+</form>
+
+<br />
+
+<form method="get" action="/Users/UpdateRole" class="form-inline">
+    <div class="row">
+        <div class="form-group">
+            <input class="form-control" type="hidden" name="Id" value="@Model.Id" required>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Change Role" class="btn btn-primary form-control" />
+        </div>
+    </div>
+</form>
