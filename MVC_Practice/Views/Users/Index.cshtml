@@ -8,6 +8,44 @@
 
 <h2>Users</h2>
 
+<div class="container-fluid">
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#AddCollapse">Add</button>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid collapse" id="AddCollapse">
+        <form method="post" action="/Users/Add" name="AddForm" class="form-inline">
+            <div class="row">
+
+                <div class="form-group">
+                    <input class="form-control" type="email" name="Email" placeholder="email" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="text" name="UserName" placeholder="user" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="text" name="Password" placeholder="password" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="text" name="PasswordConfirm" placeholder="password confirm" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary form-control" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
 <table class="table">
     @UsersHelpers.UsersList(Model, ViewBag.roles, false)
 </table>

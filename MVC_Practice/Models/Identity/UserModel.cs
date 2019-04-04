@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVC_Practice.Models.Identity
 {
-    public class RegisterModel
+    public class UserModel
     {
+
         [Required]
         public string Email { get; set; }
 
         [Required]
-        public string Login { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

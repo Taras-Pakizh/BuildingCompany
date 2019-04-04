@@ -204,7 +204,9 @@
     <Compile Include="Models\Identity\ApplicationRole.cs" />
     <Compile Include="Models\Identity\ApplicationRoleManager.cs" />
     <Compile Include="Models\Identity\LoginModel.cs" />
+    <Compile Include="Models\Identity\UserModel.cs" />
     <Compile Include="Models\Identity\UserRoleModel.cs" />
+    <Compile Include="Models\Identity\UserUpdateModel.cs" />
     <Compile Include="Models\MyDB\Department.cs" />
     <Compile Include="Models\MyDB\Employee.cs" />
     <Compile Include="Models\MyDB\EmployeeOrder.cs" />

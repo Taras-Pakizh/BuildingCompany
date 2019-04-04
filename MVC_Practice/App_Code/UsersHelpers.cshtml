@@ -36,6 +36,12 @@
                         <input type="submit" value="Update" class="btn btn-warning" />
                     </form>
                 </td>
+                <td>
+                    <form method="get" action="/Users/UpdateRole" class="form-inline">
+                        <input class="form-control" type="hidden" name="Id" value="@item.Id" required>
+                        <input type="submit" value="Change Role" class="btn btn-primary form-control" />
+                    </form>
+                </td>
             }
             @{ 
                 ++i;

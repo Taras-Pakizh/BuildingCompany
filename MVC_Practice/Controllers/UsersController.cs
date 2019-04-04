@@ -45,12 +45,11 @@ namespace MVC_Practice.Controllers
 
         private string GetUserRole(ApplicationUser user)
         {
-            string role = null;
-            if (user.Roles.Count > 0)
+            if (user.Roles.Count == 0)
             {
-                role = RoleManager.FindById(user.Roles.First().RoleId).Name;
+                var result = UserManager.AddToRole(user.Id, "None");
             }
-            return role;
+            return RoleManager.FindById(user.Roles.First().RoleId).Name;
         }
 
         public ActionResult Index()
@@ -58,6 +57,38 @@ namespace MVC_Practice.Controllers
             ViewBag.roles = GetRoleNamesForUsers();
 
             return View(UserManager.Users);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Add(UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email
+                };
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    user = await UserManager.FindByNameAsync(user.UserName);
+                    result = await UserManager.AddToRoleAsync(user.Id, "None");
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return HttpNotFound();
+                    }
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            return HttpNotFound();
         }
 
         [HttpGet]
@@ -68,8 +99,6 @@ namespace MVC_Practice.Controllers
                 return HttpNotFound();
 
             string[] role = { GetUserRole(user) };
-            if (role.First() == null)
-                role[0] = "None";
             ViewBag.role = role;
 
             return View(user);
@@ -98,33 +127,32 @@ namespace MVC_Practice.Controllers
                 return HttpNotFound();
 
             string[] role = { GetUserRole(user) };
-            if (role.First() == null)
-                role[0] = "None";
             ViewBag.role = role;
 
             return View(user);
         }
 
         [HttpPost, ActionName("Update")]
-        public async Task<ActionResult> UpdateConfirmed(ApplicationUser newUser)
+        public async Task<ActionResult> UpdateConfirmed(UserUpdateModel newUser)
         {
-            if(newUser == null || newUser.UserName == null || newUser.Email == null)
-                return Redirect(Request.UrlReferrer.ToString());
-            
-            var user = await UserManager.FindByIdAsync(newUser.Id);
-            if (user == null)
-                return HttpNotFound();
-            user.UserName = newUser.UserName;
-            user.Email = newUser.Email;
-            var result = await UserManager.UpdateAsync(user);
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                var user = await UserManager.FindByIdAsync(newUser.Id);
+                if (user == null)
+                    return HttpNotFound();
+                user.UserName = newUser.UserName;
+                user.Email = newUser.Email;
+                var result = await UserManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
             }
-            else
-            {
-                return HttpNotFound();
-            }
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         [HttpGet]
@@ -139,12 +167,9 @@ namespace MVC_Practice.Controllers
                 name = x.Name,
                 value = x.Name
             }).ToList();
-            roles.Add(new { name = "None", value = "None" });
             var rolesView = new SelectList(roles, "value", "name");
 
             var userRole = GetUserRole(user);
-            if (userRole == null)
-                userRole = "None";
             rolesView.Single(x => x.Value == userRole).Selected = true;
             ViewBag.roles = rolesView;
 
@@ -156,18 +181,24 @@ namespace MVC_Practice.Controllers
         {
             if (ModelState.IsValid)
             {
-                var roleNames = RoleManager.Roles.Select(x => x.Name).ToArray();
-                var result = await UserManager.RemoveFromRolesAsync(model.UserId, roleNames);
-                result = await UserManager.AddToRoleAsync(model.UserId, model.RoleName);
+                var roles = await UserManager.GetRolesAsync(model.UserId);
+                var result = await UserManager.RemoveFromRolesAsync(model.UserId, roles.ToArray());
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    result = await UserManager.AddToRoleAsync(model.UserId, model.RoleName);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return HttpNotFound();
+                    }
                 }
                 else
                 {
                     return HttpNotFound();
                 }
-                
             }
             return Redirect(Request.UrlReferrer.ToString());
         }

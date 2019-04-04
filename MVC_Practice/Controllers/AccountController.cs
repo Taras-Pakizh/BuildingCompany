@@ -56,13 +56,26 @@ namespace MVC_Practice.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(RegisterModel model)
         {
+            
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email, Year = model.Year };
+                ApplicationUser user = new ApplicationUser { UserName = model.Login, Email = model.Email };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Login");
+                    user = await UserManager.FindByNameAsync(user.UserName);
+                    result = await UserManager.AddToRoleAsync(user.Id, "None");
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        foreach (string error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error);
+                        }
+                    }
                 }
                 else
                 {
