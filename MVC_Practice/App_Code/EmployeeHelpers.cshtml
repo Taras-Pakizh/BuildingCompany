@@ -1,4 +1,4 @@
-﻿@using MVC_Practice.Models
+﻿@using MVC_Practice.Models.DbModels
 
 @helper GenderToString(string gender)
 {
@@ -37,10 +37,10 @@
     <tr>
         <td>@item.firstname</td>
         <td>@item.lastname</td>
-        <td>@item.Position1.positionName</td>
+        <td>@item.Position.positionName</td>
         <td>@item.birthday</td>
         @GenderToString(item.gender)
-        <td>@item.Department1.dname</td>
+        <td>@item.Department.dname</td>
         @if (!IsReadonly)
         {
             <td>

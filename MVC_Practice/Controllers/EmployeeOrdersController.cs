@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using MVC_Practice.Models;
+using MVC_Practice.Models.DbModels;
 
 using MVC_Practice.Repository;
 
@@ -13,14 +13,14 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, HR")]
     public class EmployeeOrdersController : Controller
     {
-        MyModels context;
+        DbModels context;
 
         private SelectList orders;
         private SelectList employees;
 
         public EmployeeOrdersController() : base()
         {
-            context = new MyModels();
+            context = new DbModels();
 
             orders = new SelectList(context.OrderTypes, "orderTypeID", "orderName");
 
@@ -44,7 +44,7 @@ namespace MVC_Practice.Controllers
         [HttpPost]
         public ActionResult Add(EmployeeOrder order)
         {
-            order.orderID = context.EmployeeOrders.Max(x => x.orderID) + 1;
+            //order.eOrderID = context.EmployeeOrders.Max(x => x.eOrderID) + 1;
             order = order.Validate();
             using(var repository = new Repository<EmployeeOrder>())
             {
@@ -102,8 +102,8 @@ namespace MVC_Practice.Controllers
             if (order == null)
                 return HttpNotFound();
 
-            orders.Single(x => x.Value == order.orderType.ToString()).Selected = true;
-            employees.Single(x => x.Value == order.Employee.ToString()).Selected = true;
+            orders.Single(x => x.Value == order.orderTypeID.ToString()).Selected = true;
+            employees.Single(x => x.Value == order.employeeID.ToString()).Selected = true;
 
             ViewBag.orders = orders;
             ViewBag.employees = employees;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-using MVC_Practice.Models;
+using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 
 namespace MVC_Practice.Controllers
@@ -13,11 +13,11 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, HR")]
     public class PositionsController : Controller
     {
-        MyModels context;
+        DbModels context;
 
         public PositionsController() : base()
         {
-            context = new MyModels();
+            context = new DbModels();
 
         }
 
@@ -29,7 +29,7 @@ namespace MVC_Practice.Controllers
         [HttpPost]
         public ActionResult Add(Position position)
         {
-            position.positionID = context.Positions.Max(x => x.positionID) + 1;
+            //position.positionID = context.Positions.Max(x => x.positionID) + 1;
             using(var repository = new Repository<Position>())
             {
                 if (repository.Add(position))

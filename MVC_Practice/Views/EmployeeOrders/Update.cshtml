@@ -1,4 +1,4 @@
-﻿@using MVC_Practice.Models
+﻿@using MVC_Practice.Models.DbModels
 @model EmployeeOrder
 @{
     ViewBag.Title = "Update";
@@ -10,18 +10,18 @@
 <form method="post" action="/EmployeeOrders/Update" name="AddForm" class="form-inline">
     <div class="row">
 
-        <input type="hidden" name="orderID" value="@Model.orderID" />
+        <input type="hidden" name="eOrderID" value="@Model.eOrderID" />
 
         <div class="form-group">
             <input class="form-control" type="datetime" name="orderDate" value="@Model.orderDate" required>
         </div>
 
         <div class="checkbox">
-            @Html.DropDownList("Employee", ViewBag.employees as SelectList, new { @class = "form-control" })
+            @Html.DropDownList("employeeID", ViewBag.employees as SelectList, new { @class = "form-control" })
         </div>
 
         <div class="checkbox">
-            @Html.DropDownList("orderType", ViewBag.orders as SelectList, new { @class = "form-control" })
+            @Html.DropDownList("orderTypeID", ViewBag.orders as SelectList, new { @class = "form-control" })
         </div>
 
     </div>

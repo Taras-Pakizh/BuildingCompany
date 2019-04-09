@@ -1,4 +1,4 @@
-﻿@using MVC_Practice.Models
+﻿@using MVC_Practice.Models.DbModels
 
 @helper EmployeeOrdersList(IEnumerable<EmployeeOrder> Model, bool IsReadonly)
 {
@@ -16,12 +16,12 @@
     foreach (var item in Model)
     {
         <tr>
-            <td>@item.Employee1.firstname @item.Employee1.lastname</td>
-            <td>@item.OrderType1.orderName</td>
+            <td>@item.Employee.firstname @item.Employee.lastname</td>
+            <td>@item.OrderType.orderName</td>
             <td>@item.orderDate</td>
             <td>
                 <form class="form-inline" method="get" action="/EmployeeOrders/Open">
-                    <input type="hidden" value="@item.orderID" name="id" />
+                    <input type="hidden" value="@item.eOrderID" name="id" />
                     <input type="submit" class="btn btn-primary" value="Open" />
                 </form>
             </td>
@@ -29,13 +29,13 @@
             {
                 <td>
                     <form class="form-inline" method="get" action="/EmployeeOrders/Delete">
-                        <input type="hidden" value="@item.orderID" name="id" />
+                        <input type="hidden" value="@item.eOrderID" name="id" />
                         <input type="submit" value="Delete" class="btn btn-danger" />
                     </form>
                 </td>
                 <td>
                     <form class="form-inline" method="get" action="/EmployeeOrders/Update">
-                        <input type="hidden" value="@item.orderID" name="id" />
+                        <input type="hidden" value="@item.eOrderID" name="id" />
                         <input type="submit" value="Update" class="btn btn-warning" />
                     </form>
                 </td>
@@ -47,8 +47,8 @@
 @helper DetailedEmployeeOrder(EmployeeOrder model)
 {
     <div class="container-fluid">
-        <h4>Employee: @model.Employee1.firstname @model.Employee1.lastname</h4>
-        <h4>Order type: @model.OrderType1.orderName</h4>
+        <h4>Employee: @model.Employee.firstname @model.Employee.lastname</h4>
+        <h4>Order type: @model.OrderType.orderName</h4>
         <h4>Date: @model.orderDate</h4>
     </div>
     <br />

@@ -103,7 +103,7 @@ namespace MVC_Practice.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
+                ApplicationUser user = await UserManager.FindAsync(model.Login, model.Password);
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Wrong password or login");

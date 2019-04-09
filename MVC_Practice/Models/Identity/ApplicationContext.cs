@@ -10,7 +10,7 @@ namespace MVC_Practice.Models.Identity
 {
     public class ApplicationContext:IdentityDbContext<ApplicationUser>
     {
-        public ApplicationContext() : base("MyModels") { }
+        public ApplicationContext() : base("DbModels") { }
 
         public static ApplicationContext Create()
         {

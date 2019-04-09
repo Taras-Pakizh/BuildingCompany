@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 
-using MVC_Practice.Models;
+using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 using System.Threading.Tasks;
 
@@ -14,11 +14,11 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, HR")]
     public class OrderTypesController : Controller
     {
-        MyModels context;
+        DbModels context;
 
         public OrderTypesController() : base()
         {
-            context = new MyModels();
+            context = new DbModels();
 
         }
 
@@ -30,7 +30,7 @@ namespace MVC_Practice.Controllers
         [HttpPost]
         public ActionResult Add(OrderType orderType)
         {
-            orderType.orderTypeID = context.OrderTypes.Max(x => x.orderTypeID) + 1;
+            //orderType.orderTypeID = context.OrderTypes.Max(x => x.orderTypeID) + 1;
             using (var repository = new Repository<OrderType>())
             {
                 if (repository.Add(orderType))

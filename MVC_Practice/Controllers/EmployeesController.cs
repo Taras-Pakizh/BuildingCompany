@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
-using MVC_Practice.Models;
+using MVC_Practice.Models.DbModels;
 using MVC_Practice.Models.Identity;
 using MVC_Practice.Repository;
 using Microsoft.AspNet.Identity.Owin;
@@ -23,14 +23,14 @@ namespace MVC_Practice.Controllers
             }
         }
 
-        private MyModels context;
+        private DbModels context;
 
         private SelectList positions;
         private SelectList departments;
         
         public EmployeesController():base()
         {
-            context = new MyModels();
+            context = new DbModels();
            
             positions = new SelectList(context.Positions, "positionID", "positionName");
             departments = new SelectList(context.Departments, "departmentID", "dname");
@@ -53,7 +53,7 @@ namespace MVC_Practice.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Employee employee)
         {
-            employee.employeeID = context.Employees.Max(x => x.employeeID) + 1;
+            //employee.employeeID = context.Employees.Max(x => x.employeeID) + 1;
             using(var repository = new Repository<Employee>())
             {
                 if (repository.Add(employee))
@@ -104,8 +104,8 @@ namespace MVC_Practice.Controllers
             if (employee == null)
                 return HttpNotFound();
 
-            positions.Single(x => x.Value == employee.Position1.positionID.ToString()).Selected = true;
-            departments.Single(x => x.Value == employee.Department1.departmentID.ToString()).Selected = true;
+            positions.Single(x => x.Value == employee.Position.positionID.ToString()).Selected = true;
+            departments.Single(x => x.Value == employee.Department.departmentID.ToString()).Selected = true;
 
             ViewBag.positions = positions;
             ViewBag.departments = departments;

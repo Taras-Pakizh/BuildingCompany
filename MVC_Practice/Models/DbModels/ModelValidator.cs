@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MVC_Practice.Models
+namespace MVC_Practice.Models.DbModels
 {
     public static class ModelValidator
     {

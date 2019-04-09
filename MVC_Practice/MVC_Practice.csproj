@@ -183,6 +183,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Models\DbModels\Client.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\EmployeeOrdersController.cs" />
@@ -192,6 +193,13 @@
     <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Models\DbModels\DbModels.cs" />
+    <Compile Include="Models\DbModels\DeliveryOrder.cs" />
+    <Compile Include="Models\DbModels\DeliverysContent.cs" />
+    <Compile Include="Models\DbModels\Department.cs" />
+    <Compile Include="Models\DbModels\DetailedEmployee.cs" />
+    <Compile Include="Models\DbModels\Employee.cs" />
+    <Compile Include="Models\DbModels\EmployeeOrder.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.cs" />
     <Compile Include="Migrations\201901051630134_InitialCreate.Designer.cs">
       <DependentUpon>201901051630134_InitialCreate.cs</DependentUpon>
@@ -217,13 +225,30 @@
     <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Models\Identity\ApplicationUserManager.cs" />
     <Compile Include="Models\Identity\RegisterModel.cs" />
-    <Compile Include="Models\MyDB\ModelValidator.cs" />
+    <Compile Include="Models\DbModels\ModelValidator.cs" />
     <Compile Include="Models\MyDB\MyModels.cs" />
     <Compile Include="Models\MyDB\OrderType.cs" />
     <Compile Include="Models\MyDB\Position.cs" />
+    <Compile Include="Models\DbModels\OrderType.cs" />
+    <Compile Include="Models\DbModels\Position.cs" />
+    <Compile Include="Models\DbModels\Project.cs" />
+    <Compile Include="Models\DbModels\ProjectStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\MyDB\sysdiagram.cs" />
     <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Models\DbModels\Resource.cs" />
+    <Compile Include="Models\DbModels\Resources_Storages.cs" />
+    <Compile Include="Models\DbModels\ShipmentToStorage.cs" />
+    <Compile Include="Models\DbModels\Stage.cs" />
+    <Compile Include="Models\DbModels\State.cs" />
+    <Compile Include="Models\DbModels\Storage.cs" />
+    <Compile Include="Models\DbModels\StorageShipment.cs" />
+    <Compile Include="Models\DbModels\Supplier.cs" />
+    <Compile Include="Models\DbModels\sysdiagram.cs" />
+    <Compile Include="Models\DbModels\vAdriftEmployee.cs" />
+    <Compile Include="Models\DbModels\vAllResource.cs" />
+    <Compile Include="Models\DbModels\vDefaultEmployee.cs" />
+    <Compile Include="Models\DbModels\vVacationEmployee.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

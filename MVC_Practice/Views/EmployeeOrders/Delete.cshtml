@@ -1,4 +1,4 @@
-﻿@using MVC_Practice.Models
+﻿@using MVC_Practice.Models.DbModels
 @model EmployeeOrder
 @{
     IEnumerable<EmployeeOrder> order = new List<EmployeeOrder>() { Model };
@@ -15,6 +15,6 @@
 </table>
 
 <form method="post" action="/EmployeeOrders/Delete" class="form-horizontal">
-    <input type="hidden" name="id" value="@Model.orderID" />
+    <input type="hidden" name="id" value="@Model.eOrderID" />
     <input type="submit" value="Delete" class="btn btn-danger" />
 </form>

@@ -9,7 +9,7 @@ namespace MVC_Practice.Models.Identity
     public class LoginModel
     {
         [Required]
-        public string Email { get; set; }
+        public string Login { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
