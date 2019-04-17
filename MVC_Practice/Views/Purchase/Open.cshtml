@@ -1,0 +1,93 @@
+﻿@using MVC_Practice.Models.DbModels
+@model DeliveryOrder
+@{
+    IEnumerable<DeliveryOrder> order = new List<DeliveryOrder>() { Model };
+}
+@{
+    ViewBag.Title = "Open";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order content</h2>
+
+<table class="table">
+    @PurchaseHelpers.OrdersList(order, true, true)
+</table>
+
+<br />
+
+<div class="container-fluid">
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#AddCollapse">Add content</button>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid collapse" id="AddCollapse">
+        <form method="post" action="/Purchase/AddItem" name="AddForm" class="form-inline">
+            <div class="row">
+
+                <div class="form-group">
+                    <input type="hidden" name="deliveryOrderID" value="@Model.deliveryOrderID" />
+                </div>
+
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New resource</button>
+
+                <div class="checkbox">
+                    @Html.DropDownList("resourceID", ViewBag.resources as SelectList, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="number" name="contentAmount" placeholder="Amount" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="number" name="resourcePrice" placeholder="Price" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary form-control" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+
+<table class="table">
+    @PurchaseHelpers.ContentList(ViewBag.items, false)
+</table>
+
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="/Purchase/AddResource" name="AddForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add resource</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="resourceName" placeholder="Resource name" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Add" class="btn btn-primary form-control" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <a type="button" class="btn btn-primary" href="~/Purchase/Index">Back</a>
+</div>

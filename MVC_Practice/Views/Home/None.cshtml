@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "None";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Welcome @User.Identity.Name</h2>
+        <p>
+            You authorized, but don't have a role to use system 
+        </p>
+    </div>
+    <p>Please ask administrator to specify your account</p>
+</div>

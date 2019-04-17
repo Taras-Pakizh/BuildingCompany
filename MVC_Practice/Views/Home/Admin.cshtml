@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Admin panel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Welcome @User.Identity.Name</h2>
+        <p>
+            You authorized as administrator
+        </p>
+    </div>
+    <p>You can manage roles and users of the system</p>
+</div>
+
+<div class="container">
+    <a href="~/Roles/Index" class="btn btn-primary btn-lg btn-block">Roles</a>
+    <a href="~/Users/Index" class="btn btn-primary btn-lg btn-block">Users</a>
+</div>

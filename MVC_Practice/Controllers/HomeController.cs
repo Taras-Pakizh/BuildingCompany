@@ -28,14 +28,31 @@ namespace MVC_Practice.Controllers
         }
 
         
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("admin"))
+                {
+                    return RedirectToAction("Admin");
+                }
+                else if (User.IsInRole("HR"))
+                {
+                    return RedirectToAction("HR");
+                }
+                else if(User.IsInRole("Storage man"))
+                {
+                    return RedirectToAction("StorageMan");
+                }
+                else if (User.IsInRole("None"))
+                {
+                    return RedirectToAction("None");
+                }
+            }
 
             return View();
         }
 
-        [Authorize(Roles = "admin")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -47,6 +64,30 @@ namespace MVC_Practice.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin, HR")]
+        public ActionResult HR()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin, Storage man")]
+        public ActionResult StorageMan()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin, None")]
+        public ActionResult None()
+        {
             return View();
         }
     }

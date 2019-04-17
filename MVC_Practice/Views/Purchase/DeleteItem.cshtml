@@ -1,0 +1,20 @@
+﻿@using MVC_Practice.Models.DbModels
+@model DeliverysContent
+@{
+    IEnumerable<DeliverysContent> content = new List<DeliverysContent>() { Model };
+}
+@{
+    ViewBag.Title = "DeleteItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete this item?</h2>
+
+<table class="table">
+    @PurchaseHelpers.ContentList(content, true)
+</table>
+
+<form method="post" action="/Purchase/DeleteItem" class="form-horizontal">
+    <input type="hidden" name="id" value="@Model.contentID" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>

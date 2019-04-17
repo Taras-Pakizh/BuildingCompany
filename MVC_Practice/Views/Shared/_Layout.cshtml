@@ -29,10 +29,9 @@
                     <li>@Html.ActionLink("Log in", "Login", "Account")</li>
                     <li>@Html.ActionLink("Log out", "Logout", "Account")</li>
                     <li>@Html.ActionLink("Account", "Account", "Account")</li>
-                    @if(ViewBag.userName != null && ViewBag.role != null)
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a>Hello @ViewBag.userName</a></li>
-                        <li><a>Role: @ViewBag.role</a></li>
+                        <li><a>Hello @User.Identity.Name</a></li>
                     }
                 </ul>
             </div>

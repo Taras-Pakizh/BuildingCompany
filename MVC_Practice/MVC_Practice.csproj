@@ -183,6 +183,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Models\DbModels\Client.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
@@ -249,6 +250,8 @@
     <Compile Include="Models\DbModels\vAllResource.cs" />
     <Compile Include="Models\DbModels\vDefaultEmployee.cs" />
     <Compile Include="Models\DbModels\vVacationEmployee.cs" />
+    <Compile Include="ViewModels\DbModels\DeliveryOrderView.cs" />
+    <Compile Include="ViewModels\DbModels\DeliveryContentView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -271,6 +274,7 @@
     <Content Include="App_Code\OrderTypesHelpers.cshtml" />
     <Content Include="App_Code\RolesHelpers.cshtml" />
     <Content Include="App_Code\UsersHelpers.cshtml" />
+    <Content Include="App_Code\PurchaseHelpers.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -322,6 +326,16 @@
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Update.cshtml" />
     <Content Include="Views\Users\UpdateRole.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Home\HR.cshtml" />
+    <Content Include="Views\Home\StorageMan.cshtml" />
+    <Content Include="Views\Home\None.cshtml" />
+    <Content Include="Views\Purchase\Index.cshtml" />
+    <Content Include="Views\Purchase\Open.cshtml" />
+    <Content Include="Views\Purchase\UpdateItem.cshtml" />
+    <Content Include="Views\Purchase\Update.cshtml" />
+    <Content Include="Views\Purchase\Delete.cshtml" />
+    <Content Include="Views\Purchase\DeleteItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

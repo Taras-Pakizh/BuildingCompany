@@ -1,0 +1,92 @@
+﻿@using MVC_Practice.Models.DbModels
+
+@helper OrdersList(IEnumerable<DeliveryOrder> Model, bool IsReadonly, bool IsClosed)
+{
+    <tr>
+        <th>Supplier</th>
+        <th>Date</th>
+        <th>Sum price</th>
+
+        @if (!IsClosed)
+        {
+            <th></th>
+        }
+
+        @if (!IsReadonly)
+        {
+            <th></th>
+            <th></th>
+        }
+    </tr>
+
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Supplier.supplierName</td>
+            <td>@item.deliveryOrderDate</td>
+            <td>@item.sumPrice</td>
+            @if (!IsClosed)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Purchase/Open">
+                        <input type="hidden" value="@item.deliveryOrderID" name="id" />
+                        <input type="submit" value="Open" class="btn btn-primary" />
+                    </form>
+                </td>
+            }
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Purchase/Delete">
+                        <input type="hidden" value="@item.deliveryOrderID" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Purchase/Update">
+                        <input type="hidden" value="@item.deliveryOrderID" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+            }
+        </tr>
+    }
+}
+
+@helper ContentList(IEnumerable<DeliverysContent> Model, bool IsReadonly)
+{
+    <tr>
+        <th>Resource</th>
+        <th>Price per unit</th>
+        <th>Amount</th>
+
+        @if (!IsReadonly)
+        {
+            <th></th>
+            <th></th>
+        }
+    </tr>
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Resource.resourceName</td>
+            <td>@item.resourcePrice</td>
+            <td>@item.contentAmount</td>
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Purchase/DeleteItem">
+                        <input type="hidden" value="@item.contentID" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Purchase/UpdateItem">
+                        <input type="hidden" value="@item.contentID" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+            }
+        </tr>
+    }
+}

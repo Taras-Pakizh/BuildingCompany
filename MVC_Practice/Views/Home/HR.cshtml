@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "HR";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Welcome @User.Identity.Name</h2>
+        <p>
+            You authorized as HR
+        </p>
+    </div>
+</div>
+
+<div class="container">
+    <a href="~/Employees/Index" class="btn btn-primary btn-lg btn-block">Employees</a>
+    <a href="~/EmployeeOrders/Index" class="btn btn-primary btn-lg btn-block">Orders</a>
+    <a href="~/Positions/Index" class="btn btn-primary btn-lg btn-block">Positions</a>
+    <a href="~/Departments/Index" class="btn btn-primary btn-lg btn-block">Departments</a>
+    <a href="~/OrderTypes/Index" class="btn btn-primary btn-lg btn-block">Order types</a>
+</div>
+

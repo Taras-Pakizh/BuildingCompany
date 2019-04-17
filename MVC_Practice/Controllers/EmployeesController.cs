@@ -36,16 +36,10 @@ namespace MVC_Practice.Controllers
             departments = new SelectList(context.Departments, "departmentID", "dname");
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             ViewBag.positions = positions;
             ViewBag.departments = departments;
-
-            var user = await UserManager.FindByNameAsync(User.Identity.Name);
-            var roles = await UserManager.GetRolesAsync(user.Id);
-
-            ViewBag.userName = user.UserName;
-            ViewBag.role = roles[0];
 
             return View("~/Views/Employees/EmployeePanel.cshtml", context.Employees);
         }

@@ -1,0 +1,26 @@
+﻿@using MVC_Practice.Models.DbModels
+@model DeliveryOrder
+@{
+    IEnumerable<DeliveryOrder> order = new List<DeliveryOrder>() { Model };
+}
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete this order</h2>
+
+<table class="table">
+    @PurchaseHelpers.OrdersList(order, true, true)
+</table>
+
+<h3>Content of order</h3>
+
+<table class="table">
+    @PurchaseHelpers.ContentList(ViewBag.orders, true)
+</table>
+
+<form method="post" action="/Purchase/Delete" class="form-horizontal">
+    <input type="hidden" name="id" value="@Model.deliveryOrderID" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>

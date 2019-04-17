@@ -1,0 +1,67 @@
+﻿@using MVC_Practice.Models.DbModels
+@model DeliverysContent
+@{
+    ViewBag.Title = "UpdateItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UpdateItem</h2>
+
+<form method="post" action="/Purchase/UpdateItem" name="UpdateForm" class="form-inline">
+    <div class="row">
+
+        <input type="hidden" name="contentID" value="@Model.contentID" />
+
+        <div class="form-group">
+            <input type="hidden" name="deliveryOrderID" value="@Model.deliveryOrderID" />
+        </div>
+
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New resource</button>
+
+        <div class="checkbox">
+            @Html.DropDownList("resourceID", ViewBag.resources as SelectList, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="number" name="contentAmount" value="@Model.contentAmount" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="number" name="resourcePrice" value="@Model.resourcePrice" required>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Update" class="btn btn-primary form-control" />
+        </div>
+
+    </div>
+</form>
+
+@*resource*@
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="/Purchase/AddResource" name="AddForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add resource</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="resourceName" placeholder="Resource name" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Add" class="btn btn-primary form-control" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
