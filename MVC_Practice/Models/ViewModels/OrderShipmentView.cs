@@ -5,17 +5,17 @@ using System.Web;
 
 using System.ComponentModel.DataAnnotations;
 
-namespace MVC_Practice.Models.Identity
+namespace MVC_Practice.Models.ViewModels
 {
-    public class UserUpdateModel
+    public class OrderShipmentView
     {
         [Required]
-        public string Id { get; set; }
+        public int? storageID { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public int? orderID { get; set; }
 
         [Required]
-        public string UserName { get; set; }
+        public DateTime? date { get; set; }
     }
 }
