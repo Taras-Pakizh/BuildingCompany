@@ -1,0 +1,33 @@
+﻿@using MVC_Practice.Models.DbModels
+@model IEnumerable<Storage>
+@{
+    ViewBag.Title = "Storages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Storages</h2>
+
+<div class="container-fluid">
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#AddCollapse">Add storage</button>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid collapse" id="AddCollapse">
+        <form method="post" action="/Shipment/AddStorage" name="AddForm" class="form-inline">
+            <div class="form-group">
+                <input class="form-control" type="text" name="storageAddres" placeholder="Storage address" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary form-control" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    @ShipmentHelpers.StorageList(Model, false)
+</table>
+

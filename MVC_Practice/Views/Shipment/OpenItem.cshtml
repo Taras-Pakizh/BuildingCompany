@@ -1,0 +1,93 @@
+﻿@using MVC_Practice.Models.DbModels
+@model DeliverysContent
+@{
+    IEnumerable<DeliverysContent> item = new List<DeliverysContent>() { Model };
+}
+@{
+    ViewBag.Title = "OpenItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Shipment of Item</h2>
+
+<table class="table">
+    @ShipmentHelpers.ContentList(item, new List<bool>() { false }, true)
+</table>
+
+<br />
+
+@if (ViewBag.max != 0)
+{
+    <h3>Add shipment</h3>
+
+    <form method="post" action="/Shipment/AddItem" name="AddForm" class="form-horizontal">
+        <div class="row">
+            <input type="hidden" name="contentID" value="@Model.contentID" required />
+            <input type="hidden" name="resourceID" value="@Model.resourceID" required />
+
+
+            <div class="form-group">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New storage</button>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Storage</label>
+                <div class="checkbox">
+                    @Html.DropDownList("storageID", ViewBag.storages as SelectList, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="date">Date of shipment</label>
+                <input class="form-control" type="date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount" class="control-label">Amount</label>
+                <input class="form-control" type="number" min="@ViewBag.min" max="@ViewBag.max" name="amount" required />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary form-control" />
+            </div>
+
+        </div>
+    </form>
+
+    <br />
+} else
+{
+    <h3>This content is already on storage</h3>
+}
+
+<div class="container">
+    <a type="button" class="btn btn-primary" href="~/Shipment/OpenOrder?id=@Model.deliveryOrderID">Back</a>
+</div>
+
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="/Shipment/AddStorage" name="AddForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add storage</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="storageAddres" placeholder="Storage address" required>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Add" class="btn btn-primary form-control" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

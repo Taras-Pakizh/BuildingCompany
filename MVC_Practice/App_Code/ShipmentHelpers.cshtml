@@ -1,0 +1,157 @@
+﻿@using MVC_Practice.Models.DbModels
+
+
+@helper ContentList(IEnumerable<DeliverysContent> Model, IList<bool> isItemsStored, bool IsReadonly)
+{
+    <tr>
+        <th>Resource</th>
+        <th>Price per unit</th>
+        <th>Amount</th>
+        @if (!IsReadonly)
+        {
+            <th></th>
+        }
+
+    </tr>
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Resource.resourceName</td>
+            <td>@item.resourcePrice</td>
+            <td>@item.contentAmount</td>
+            @if (!IsReadonly)
+            {
+                <td>
+                    @if (isItemsStored[i])
+                    {
+                        <h4>Storaged</h4>
+                    }
+                    else
+                    {
+                        <form class="form-inline" method="get" action="/Shipment/OpenItem">
+                            <input type="hidden" value="@item.contentID" name="id" />
+                            <input type="submit" value="Shipment" class="btn btn-success" />
+                        </form>
+                    }
+                </td>
+            }
+        </tr>
+        i++;
+    }
+}
+
+@helper StorageList(IEnumerable<Storage> Model, bool IsReadonly)
+{
+    <tr>
+        <th>Storage</th>
+        @if (!IsReadonly)
+        {
+            <th></th>
+        }
+    </tr>
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.storageAddres</td>
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Shipment/OpenStorage">
+                        <input type="hidden" value="@item.storageID" name="id" />
+                        <input type="submit" value="Open" class="btn btn-primary" />
+                    </form>
+                </td>
+            }
+        </tr>
+    }
+}
+
+@helper StorageResourcesList(IEnumerable<Resources_Storages> Model)
+{
+    <tr>
+        <th>Resource</th>
+        <th>Amount</th>
+    </tr>
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Resource.resourceName</td>
+            <td>@item.resourceAmount</td>
+        </tr>
+    }
+}
+
+@helper ShipmantToStoragesList(IEnumerable<ShipmentToStorage> Model, bool IsReadonly)
+{
+    <tr>
+        <th>Date</th>
+        <th>Resource</th>
+        <th>Amount</th>
+        <th>Storage</th>
+        @if (!IsReadonly)
+        {
+            <th></th>
+        }
+    </tr>
+
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.shipmentDate</td>
+            <td>@item.Resources_Storages.Resource.resourceName</td>
+            <td>@item.resourceAmount</td>
+            <td>@item.Resources_Storages.Storage.storageAddres</td>
+
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Shipment/OpenShipmentToStorage">
+                        <input type="hidden" value="@item.shipmentToStorageID" name="id" />
+                        <input type="submit" value="Open" class="btn btn-primary" />
+                    </form>
+                </td>
+            }
+        </tr>
+    }
+}
+
+@helper ShipmentToStorageDetailes(ShipmentToStorage Model)
+{
+    <ul class="list-group">
+        <li class="list-group-item">
+            <h4>Date of shipment:</h4>
+
+            <b>@Model.shipmentDate</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Resource type:</h4>
+
+            <b>@Model.Resources_Storages.Resource.resourceName</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Amount:</h4>
+
+            <b>@Model.resourceAmount</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Storage:</h4>
+
+            <b>@Model.Resources_Storages.Storage.storageAddres</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Order</h4>
+
+            <table class="table">
+                @PurchaseHelpers.OrdersList(new List<DeliveryOrder>() { Model.DeliverysContent.DeliveryOrder }, new List<bool>() { false }, true, true)
+            </table>
+        </li>
+        <li class="list-group-item">
+            <h4>Content</h4>
+
+            <table class="table">
+                @PurchaseHelpers.ContentList(new List<DeliverysContent>() { Model.DeliverysContent }, true)
+            </table>
+        </li>
+    </ul>
+}

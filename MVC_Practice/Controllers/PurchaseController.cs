@@ -30,6 +30,24 @@ namespace MVC_Practice.Controllers
         {
             ViewBag.suppliers = suppliers;
 
+            var isStoraged = new List<bool>();
+
+            foreach(var order in context.DeliveryOrders)
+            {
+                foreach(var item in order.DeliverysContents)
+                {
+                    var shipments = context.ShipmentToStorages.Where(x => x.contentID == item.contentID);
+                    if (shipments.Count() == 0 || shipments.Sum(x => x.resourceAmount) < item.contentAmount)
+                    {
+                        isStoraged.Add(false);
+                        break;
+                    }
+                }
+                isStoraged.Add(true);
+            }
+
+            ViewBag.isStoraged = isStoraged;
+
             return View(context.DeliveryOrders);
         }
 

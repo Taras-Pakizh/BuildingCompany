@@ -1,0 +1,29 @@
+﻿@using MVC_Practice.Models.DbModels
+@model Storage
+@{
+    IEnumerable<Storage> storage = new List<Storage>() { Model };
+}
+@{
+    ViewBag.Title = "OpenStorage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Storage</h2>
+
+<table class="table">
+    @ShipmentHelpers.StorageList(storage, true)
+</table>
+
+<br />
+
+<h3>Storage resources</h3>
+
+<table class="table">
+    @ShipmentHelpers.StorageResourcesList(ViewBag.resources)
+</table>
+
+<br />
+
+<div class="container">
+    <a type="button" class="btn btn-primary" href="~/Shipment/Storages">Back</a>
+</div>
