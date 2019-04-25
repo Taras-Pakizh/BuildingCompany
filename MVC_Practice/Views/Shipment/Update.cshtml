@@ -1,0 +1,27 @@
+﻿@using MVC_Practice.Models.DbModels
+@model ShipmentToStorage
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<form method="post" action="/Shipment/Update" name="UpdateForm" class="form-inline">
+
+    <input type="hidden" name="shipmentToStorageID" value="@Model.shipmentToStorageID" required />
+    <input type="hidden" name="contentID" value="@Model.contentID" required/>
+    <input type="hidden" name="resourceStorageID" value="@Model.resourceStorageID"/>
+
+    <div class="form-group">
+        <input class="form-control" type="datetime" name="shipmentDate" value="@Model.shipmentDate" required>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="number" min="@ViewBag.min" max="@ViewBag.max" name="resourceAmount" value="@Model.resourceAmount" required>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-primary form-control" />
+    </div>
+</form>

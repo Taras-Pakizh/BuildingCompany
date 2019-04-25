@@ -28,24 +28,6 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpGet]
-        public ActionResult Storages()
-        {
-            return View(context.Storages);
-        }
-
-        [HttpGet]
-        public ActionResult OpenStorage(int? id)
-        {
-            var storage = context.Storages.Find(id);
-            if (storage == null)
-                return HttpNotFound();
-
-            ViewBag.resources = context.Resources_Storages.Where(x => x.storageID == id && x.resourceAmount != 0);
-
-            return View(storage);
-        }
-
-        [HttpGet]
         public ActionResult OpenOrder(int? id)
         {
             var order = context.DeliveryOrders.Find(id);
@@ -88,7 +70,11 @@ namespace MVC_Practice.Controllers
 
             ViewBag.storages = storages;
             ViewBag.min = 1;
-            ViewBag.max = item.contentAmount - context.ShipmentToStorages.Where(x => x.contentID == id).Sum(y => y.resourceAmount);
+            ViewBag.max = item.contentAmount;
+            if(context.ShipmentToStorages.Count(x=>x.contentID == id) > 0)
+            {
+                ViewBag.max -= context.ShipmentToStorages.Where(x => x.contentID == id).Sum(y => y.resourceAmount);
+            }
 
             return View(item);
         }
@@ -175,6 +161,72 @@ namespace MVC_Practice.Controllers
                 return HttpNotFound();
 
             return View(shipment);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            var model = context.ShipmentToStorages.Find(id);
+            if (model == null)
+                return HttpNotFound();
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int? id)
+        {
+            if (context.ShipmentToStorages.Find(id) == null)
+                return HttpNotFound();
+
+            using(var repo = new Repository<ShipmentToStorage>())
+            {
+                if (await repo.DeleteAsync((int)id))
+                {
+                    repo.Save();
+                }
+                else return HttpNotFound();
+            }
+
+            return RedirectToAction("ShipmentToStorages");
+        }
+
+        [HttpGet]
+        public ActionResult Update(int? id)
+        {
+            var model = context.ShipmentToStorages.Find(id);
+            if (model == null)
+                return HttpNotFound();
+
+            var list = context.ShipmentToStorages
+                .Where(x => x.contentID == model.contentID && x.shipmentToStorageID != model.shipmentToStorageID);
+
+            ViewBag.min = 1;
+            ViewBag.max = context.DeliverysContents.Find(model.contentID).contentAmount;
+            if(list.Count() > 0)
+            {
+                ViewBag.max -= list.Sum(x => x.resourceAmount);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Update")]
+        public ActionResult UpdateConfirmed(ShipmentToStorage model)
+        {
+            if (model == null || model.contentID == 0 || model.shipmentToStorageID == 0 || model.shipmentDate == null || model.resourceAmount == 0)
+                return HttpNotFound();
+
+            using (var repo = new Repository<ShipmentToStorage>())
+            {
+                if (repo.Update(model))
+                {
+                    repo.Save();
+                }
+                else return HttpNotFound();
+            }
+
+            return RedirectToAction("ShipmentToStorages");
         }
     }
 }

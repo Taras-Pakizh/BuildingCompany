@@ -1,0 +1,21 @@
+﻿@using MVC_Practice.Models.DbModels
+@model Storage
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<form method="post" action="/Storage/Update" name="UpdateForm" class="form-inline">
+
+    <input type="hidden" name="storageID" value="@Model.storageID" required />
+
+    <div class="form-group">
+        <input class="form-control" type="text" name="storageAddres" value="@Model.storageAddres" required>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-primary form-control" />
+    </div>
+</form>

@@ -185,6 +185,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\ShipmentController.cs" />
+    <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Models\DbModels\Client.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
@@ -343,9 +344,13 @@
     <Content Include="Views\Shipment\OpenOrder.cshtml" />
     <Content Include="Views\Shipment\OpenItem.cshtml" />
     <Content Include="Views\Shipment\ShipmentToStorages.cshtml" />
-    <Content Include="Views\Shipment\Storages.cshtml" />
-    <Content Include="Views\Shipment\OpenStorage.cshtml" />
+    <Content Include="Views\Storage\Storages.cshtml" />
+    <Content Include="Views\Storage\OpenStorage.cshtml" />
     <Content Include="Views\Shipment\OpenShipmentToStorage.cshtml" />
+    <Content Include="Views\Storage\Update.cshtml" />
+    <Content Include="Views\Storage\Delete.cshtml" />
+    <Content Include="Views\Shipment\Delete.cshtml" />
+    <Content Include="Views\Shipment\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

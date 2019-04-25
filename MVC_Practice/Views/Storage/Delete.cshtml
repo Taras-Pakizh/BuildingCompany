@@ -1,0 +1,18 @@
+﻿@using MVC_Practice.Models.DbModels
+@model Storage
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete this storage?</h2>
+
+<table class="table">
+    @ShipmentHelpers.StorageList(new List<Storage>() { Model }, true)
+</table>
+
+<form method="post" action="/Storage/Delete" class="form-horizontal">
+    <input type="hidden" name="id" value="@Model.storageID" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>
+

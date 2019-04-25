@@ -48,22 +48,36 @@
         @if (!IsReadonly)
         {
             <th></th>
+            <th></th>
+            <th></th>
         }
     </tr>
     foreach (var item in Model)
     {
-        <tr>
-            <td>@item.storageAddres</td>
-            @if (!IsReadonly)
-            {
-                <td>
-                    <form class="form-inline" method="get" action="/Shipment/OpenStorage">
-                        <input type="hidden" value="@item.storageID" name="id" />
-                        <input type="submit" value="Open" class="btn btn-primary" />
-                    </form>
-                </td>
-            }
-        </tr>
+    <tr>
+        <td>@item.storageAddres</td>
+        @if (!IsReadonly)
+        {
+            <td>
+                <form class="form-inline" method="get" action="/Storage/OpenStorage">
+                    <input type="hidden" value="@item.storageID" name="id" />
+                    <input type="submit" value="Open" class="btn btn-primary" />
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" method="get" action="/Storage/Update">
+                    <input type="hidden" value="@item.storageID" name="id" />
+                    <input type="submit" value="Update" class="btn btn-warning" />
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" method="get" action="/Storage/Delete">
+                    <input type="hidden" value="@item.storageID" name="id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </td>
+        }
+    </tr>
     }
 }
 
@@ -92,27 +106,41 @@
         @if (!IsReadonly)
         {
             <th></th>
+            <th></th>
+            <th></th>
         }
     </tr>
 
     foreach (var item in Model)
     {
-        <tr>
-            <td>@item.shipmentDate</td>
-            <td>@item.Resources_Storages.Resource.resourceName</td>
-            <td>@item.resourceAmount</td>
-            <td>@item.Resources_Storages.Storage.storageAddres</td>
+    <tr>
+        <td>@item.shipmentDate</td>
+        <td>@item.Resources_Storages.Resource.resourceName</td>
+        <td>@item.resourceAmount</td>
+        <td>@item.Resources_Storages.Storage.storageAddres</td>
 
-            @if (!IsReadonly)
-            {
-                <td>
-                    <form class="form-inline" method="get" action="/Shipment/OpenShipmentToStorage">
-                        <input type="hidden" value="@item.shipmentToStorageID" name="id" />
-                        <input type="submit" value="Open" class="btn btn-primary" />
-                    </form>
-                </td>
-            }
-        </tr>
+        @if (!IsReadonly)
+        {
+            <td>
+                <form class="form-inline" method="get" action="/Shipment/OpenShipmentToStorage">
+                    <input type="hidden" value="@item.shipmentToStorageID" name="id" />
+                    <input type="submit" value="Open" class="btn btn-primary" />
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" method="get" action="/Shipment/Update">
+                    <input type="hidden" value="@item.shipmentToStorageID" name="id" />
+                    <input type="submit" value="Update" class="btn btn-warning" />
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" method="get" action="/Shipment/Delete">
+                    <input type="hidden" value="@item.shipmentToStorageID" name="id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </td>
+        }
+    </tr>
     }
 }
 
