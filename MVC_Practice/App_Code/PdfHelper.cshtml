@@ -1,0 +1,14 @@
+﻿
+@helper PdfForm(string id) {
+<div class="container">
+    <form class="form-inline" method="post" action="/Home/Generate" onsubmit="return validateForm()">
+
+        <input type="hidden" name="htmlValue" runat="server" id="docPDF" />
+
+        <button type="button" class="btn btn-default" onclick="refreshHtml('@id')" id="GenBtn">Generate pdf file</button>
+
+        <input class="btn btn-primary" value="Save" type="submit" />
+
+    </form>
+</div>
+}

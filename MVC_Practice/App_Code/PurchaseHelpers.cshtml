@@ -106,3 +106,31 @@
         </tr>
     }
 }
+
+@helper OrderDetails(DeliveryOrder Model)
+{
+        <ul class="list-group">
+            <li class="list-group-item">
+                <h4>Supplier:</h4>
+
+                <b>@Model.Supplier.supplierName</b>
+            </li>
+            <li class="list-group-item">
+                <h4>Date of order:</h4>
+
+                <b>@((((DateTime)Model.deliveryOrderDate).ToShortDateString()))</b>
+            </li>
+            <li class="list-group-item">
+                <h4>Sum price:</h4>
+
+                <b>@Model.sumPrice</b>
+            </li>
+            <li class="list-group-item">
+                <h4>Content:</h4>
+
+                <table class="table">
+                    @PurchaseHelpers.ContentList(Model.DeliverysContents, true)
+                </table>
+            </li>
+        </ul>
+}

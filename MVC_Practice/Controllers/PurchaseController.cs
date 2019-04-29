@@ -265,5 +265,14 @@ namespace MVC_Practice.Controllers
             }
             return RedirectToAction("Open", new { id = returnId});
         }
+
+        [HttpGet]
+        public ActionResult OpenPDF(int? id)
+        {
+            var model = context.DeliveryOrders.Find(id);
+            if (model == null)
+                return HttpNotFound();
+            return View(model);
+        }
     }
 }

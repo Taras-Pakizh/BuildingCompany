@@ -9,6 +9,7 @@
         <th>Date</th>
         <th>Project stage</th>
         <th>Storage</th>
+        <th></th>
         @if (!IsReadonly)
         {
             <th></th>
@@ -18,28 +19,36 @@
 
     foreach (var item in Model)
     {
-        <tr>
-            <td>@item.Resources_Storages.Resource.resourceName</td>
-            <td>@item.resourceAmount</td>
-            <td>@item.outDate</td>
-            <td><i>Project:</i> @item.ProjectStage.Project.pname <i>Stage:</i> @item.ProjectStage.Stage.stageName</td>
-            <td>@item.Resources_Storages.Storage.storageAddres</td>
-            @if (!IsReadonly)
-            {
-                <td>
-                    <form class="form-inline" method="get" action="/Sending/Update">
-                        <input type="hidden" value="@item.storageShipmentID" name="id" />
-                        <input type="submit" value="Update" class="btn btn-warning" />
-                    </form>
-                </td>
-                <td>
-                    <form class="form-inline" method="get" action="/Sending/Delete">
-                        <input type="hidden" value="@item.storageShipmentID" name="id" />
-                        <input type="submit" value="Delete" class="btn btn-danger" />
-                    </form>
-                </td>
-            }
-        </tr>
+    <tr>
+        <td>@item.Resources_Storages.Resource.resourceName</td>
+        <td>@item.resourceAmount</td>
+        <td>@item.outDate</td>
+        <td><i>Project:</i> @item.ProjectStage.Project.pname <i>Stage:</i> @item.ProjectStage.Stage.stageName</td>
+        <td>@item.Resources_Storages.Storage.storageAddres</td>
+        
+        <td>
+            <form class="form-inline" method="get" action="/Sending/OpenSending">
+                <input type="hidden" value="@item.storageShipmentID" name="id" />
+                <input type="submit" value="Open" class="btn btn-primary" />
+            </form>
+        </td>
+
+        @if (!IsReadonly)
+        {
+            <td>
+                <form class="form-inline" method="get" action="/Sending/Update">
+                    <input type="hidden" value="@item.storageShipmentID" name="id" />
+                    <input type="submit" value="Update" class="btn btn-warning" />
+                </form>
+            </td>
+            <td>
+                <form class="form-inline" method="get" action="/Sending/Delete">
+                    <input type="hidden" value="@item.storageShipmentID" name="id" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </td>
+        }
+    </tr>
     }
 }
 

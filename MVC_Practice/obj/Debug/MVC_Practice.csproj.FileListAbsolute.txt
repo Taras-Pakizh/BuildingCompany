@@ -122,3 +122,13 @@ D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\ru\EntityFramework.SqlSer
 D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\obj\Debug\MVC_Practice.Migrations.InitialCreate.resources
 D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\obj\Debug\MVC_Practice.csproj.GenerateResource.cache
 D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\obj\Debug\MVC_Practice.Migrations.DataMigration.resources
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\HtmlRenderer.dll
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\HtmlRenderer.PdfSharp.dll
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\PdfSharp.Charting.dll
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\PdfSharp.dll
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\HtmlRenderer.pdb
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\HtmlRenderer.PdfSharp.pdb
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\PdfSharp.xml
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\PdfSharp.Charting.xml
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\de\PdfSharp.resources.dll
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\de\PdfSharp.Charting.resources.dll

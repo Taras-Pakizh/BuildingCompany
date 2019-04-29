@@ -3,10 +3,13 @@ using Microsoft.Owin.Security;
 using MVC_Practice.Models.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TheArtOfDev.HtmlRenderer.Core;
+using TheArtOfDev.HtmlRenderer.PdfSharp;
 
 namespace MVC_Practice.Controllers
 {
@@ -89,6 +92,30 @@ namespace MVC_Practice.Controllers
         public ActionResult None()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public void Generate(string htmlValue)
+        {
+            var css = PdfGenerator.ParseStyleSheet(System.IO.File.ReadAllText(Server.MapPath("~/Content/bootstrap.min.css")));
+            var msPDF = PdfSharpConvert(htmlValue, css);
+
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=myPdf.pdf");
+            Response.BinaryWrite(msPDF.ToArray());
+
+            Response.End();
+        }
+
+        public static MemoryStream PdfSharpConvert(string html, CssData css)
+        {
+            using (var file = new MemoryStream())
+            {
+                var pdf = PdfGenerator.GeneratePdf(html, PdfSharp.PageSize.A4, 25, css);
+                pdf.Save(file);
+                return file;
+            }
         }
     }
 }

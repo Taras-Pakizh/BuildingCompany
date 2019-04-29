@@ -10,7 +10,14 @@
 
 <h2>Shipment</h2>
 
-@ShipmentHelpers.ShipmentToStorageDetailes(Model)
+<div id="docHTML">
+    <h2 style="text-align:center">Material shipment act</h2>
+    @ShipmentHelpers.ShipmentToStorageDetailes(Model)
+    <h4 style="text-align:right">User: @User.Identity.Name</h4>
+    <h5 style="text-align:right">Role: Storage man</h5>
+</div>
+
+@PdfHelper.PdfForm("docHTML")
 
 <br />
 

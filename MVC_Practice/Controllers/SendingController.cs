@@ -39,7 +39,7 @@ namespace MVC_Practice.Controllers
         {
             return View(context.StorageShipments);
         }
-
+        
         [HttpGet]
         public ActionResult OpenSending(int? id)
         {
@@ -143,5 +143,7 @@ namespace MVC_Practice.Controllers
             }
             return RedirectToAction("Sendings");
         }
+
+
     }
 }

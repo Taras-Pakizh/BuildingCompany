@@ -1,15 +1,15 @@
 ﻿@using MVC_Practice.Models.DbModels
-@model StorageShipment
+@model DeliveryOrder
 @{
-    ViewBag.Title = "OpenSending";
+    ViewBag.Title = "OpenPDF";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Sending</h2>
+<h2>Save to PDF</h2>
 
 <div id="docHTML">
-    <h2 style="text-align:center">Material sending act</h2>
-    @SendingsHelpers.SendingDetailes(Model)
+    <h2 style="text-align:center">Delivery order</h2>
+    @PurchaseHelpers.OrderDetails(Model)
     <h4 style="text-align:right">User: @User.Identity.Name</h4>
     <h5 style="text-align:right">Role: Storage man</h5>
 </div>
@@ -19,5 +19,5 @@
 <br />
 
 <div class="container">
-    <a type="button" class="btn btn-primary" href="~/Sending/Sendings">Back</a>
+    <a type="button" class="btn btn-primary" href="~/Purchase/Open?id=@Model.deliveryOrderID">Back</a>
 </div>
