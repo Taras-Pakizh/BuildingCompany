@@ -23,5 +23,6 @@ namespace MVC_Practice.Models.DbModels
         public virtual ProjectStage ProjectStage { get; set; }
 
         public virtual Resources_Storages Resources_Storages { get; set; }
+        
     }
 }

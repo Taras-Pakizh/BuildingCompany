@@ -1,0 +1,16 @@
+﻿@using MVC_Practice.Models.DbModels
+@model StorageShipment
+@{
+    ViewBag.Title = "OpenSending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sending</h2>
+
+@SendingsHelpers.SendingDetailes(Model)
+
+<br />
+
+<div class="container">
+    <a type="button" class="btn btn-primary" href="~/Sending/Sendings">Back</a>
+</div>

@@ -184,6 +184,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\SendingController.cs" />
     <Compile Include="Controllers\ShipmentController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Models\DbModels\Client.cs" />
@@ -280,6 +281,7 @@
     <Content Include="App_Code\UsersHelpers.cshtml" />
     <Content Include="App_Code\PurchaseHelpers.cshtml" />
     <Content Include="App_Code\ShipmentHelpers.cshtml" />
+    <Content Include="App_Code\SendingsHelpers.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -351,6 +353,11 @@
     <Content Include="Views\Storage\Delete.cshtml" />
     <Content Include="Views\Shipment\Delete.cshtml" />
     <Content Include="Views\Shipment\Update.cshtml" />
+    <Content Include="Views\Sending\Sendings.cshtml" />
+    <Content Include="Views\Sending\OpenSending.cshtml" />
+    <Content Include="Views\Sending\Add.cshtml" />
+    <Content Include="Views\Sending\Update.cshtml" />
+    <Content Include="Views\Sending\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

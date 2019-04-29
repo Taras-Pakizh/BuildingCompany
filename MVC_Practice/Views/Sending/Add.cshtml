@@ -1,0 +1,49 @@
+﻿@using MVC_Practice.Models.DbModels
+@model Resources_Storages
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sending</h2>
+
+<table class="table">
+    @ShipmentHelpers.StorageResourcesList(new List<Resources_Storages>() { Model }, true)
+</table>
+
+<br />
+
+<div class="container-fluid">
+    <form method="post" action="/Sending/Add" name="AddForm" class="form-horizontal">
+        <div class="row">
+
+            <div>
+                <input type="hidden" name="resourceStorageID" value="@Model.resourceStorageID" required/>
+            </div>
+
+            <label class="control-label" for="projectStageID">Project stage:</label>
+            <div class="checkbox">
+                @Html.DropDownList("projectStageID", ViewBag.stages as SelectList, new { @class = "form-control" })
+            </div>
+
+            <br />
+
+            <div>
+                <label class="control-label" for="outDate">Date of sending:</label>
+                <input class="form-control" type="date" name="outDate" placeholder="Date" required>
+            </div>
+
+            <br />
+
+            <label class="control-label" for="resourceAmount">Amount:</label>
+            <input class="form-control" type="number" name="resourceAmount" placeholder="Amount" min="@ViewBag.min" max="@ViewBag.max" required/>
+
+            <br />
+
+            <div>
+                <input type="submit" value="Add" class="btn btn-primary form-control" />
+            </div>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,12 @@
+﻿@using MVC_Practice.Models.DbModels
+@model IEnumerable<StorageShipment>
+@{
+    ViewBag.Title = "Sendings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sendings</h2>
+
+<table class="table">
+    @SendingsHelpers.SendingList(Model, false)
+</table>

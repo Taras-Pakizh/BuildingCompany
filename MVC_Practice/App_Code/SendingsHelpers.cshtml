@@ -1,0 +1,84 @@
+﻿@using MVC_Practice.Models.DbModels
+
+
+@helper SendingList(IEnumerable<StorageShipment> Model, bool IsReadonly)
+{
+    <tr>
+        <th>Resource</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Project stage</th>
+        <th>Storage</th>
+        @if (!IsReadonly)
+        {
+            <th></th>
+            <th></th>
+        }
+    </tr>
+
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Resources_Storages.Resource.resourceName</td>
+            <td>@item.resourceAmount</td>
+            <td>@item.outDate</td>
+            <td><i>Project:</i> @item.ProjectStage.Project.pname <i>Stage:</i> @item.ProjectStage.Stage.stageName</td>
+            <td>@item.Resources_Storages.Storage.storageAddres</td>
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Sending/Update">
+                        <input type="hidden" value="@item.storageShipmentID" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Sending/Delete">
+                        <input type="hidden" value="@item.storageShipmentID" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+            }
+        </tr>
+    }
+}
+
+@helper SendingDetailes(StorageShipment Model)
+{
+    <ul class="list-group">
+        <li class="list-group-item">
+            <h4>Date of sending:</h4>
+
+            <b>@Model.outDate</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Resource type:</h4>
+
+            <b>@Model.Resources_Storages.Resource.resourceName</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Amount:</h4>
+
+            <b>@Model.resourceAmount</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Storage:</h4>
+
+            <b>@Model.Resources_Storages.Storage.storageAddres</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Project:</h4>
+
+            <b>@Model.ProjectStage.Project.pname</b>
+        </li>
+        <li class="list-group-item">
+            <h4>Stage:</h4>
+
+            <b>@Model.ProjectStage.Stage.stageName</b>
+
+            <h5>Deadlines:</h5>
+
+            <b>from: @Model.ProjectStage.startDate to @Model.ProjectStage.endDate</b>
+        </li>
+    </ul>
+}

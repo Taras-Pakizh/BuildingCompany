@@ -1,0 +1,17 @@
+﻿@using MVC_Practice.Models.DbModels
+@model StorageShipment
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete this sending?</h2>
+
+<table class="table">
+    @SendingsHelpers.SendingDetailes(Model)
+</table>
+
+<form method="post" action="/Sending/Delete" class="form-horizontal">
+    <input type="hidden" name="id" value="@Model.storageShipmentID" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>

@@ -1,0 +1,45 @@
+﻿@using MVC_Practice.Models.DbModels
+@model StorageShipment
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update</h2>
+
+<div class="container-fluid">
+    <form method="post" action="/Sending/Update" name="AddForm" class="form-horizontal">
+        <div class="row">
+
+            <input type="hidden" name="storageShipmentID" value="@Model.storageShipmentID" required />
+
+            <div>
+                <input type="hidden" name="resourceStorageID" value="@Model.resourceStorageID" required />
+            </div>
+
+            <label class="control-label" for="projectStageID">Project stage:</label>
+            <div class="checkbox">
+                @Html.DropDownList("projectStageID", ViewBag.stages as SelectList, new { @class = "form-control" })
+            </div>
+
+            <br />
+
+            <div>
+                <label class="control-label" for="outDate">Date of sending:</label>
+                <input class="form-control" value="@Model.outDate" type="datetime" name="outDate" required>
+            </div>
+
+            <br />
+
+            <label class="control-label" for="resourceAmount">Amount:</label>
+            <input class="form-control" value="@Model.resourceAmount" type="number" name="resourceAmount" min="@ViewBag.min" max="@ViewBag.max" required />
+
+            <br />
+
+            <div>
+                <input type="submit" value="Update" class="btn btn-primary form-control" />
+            </div>
+
+        </div>
+    </form>
+</div>
