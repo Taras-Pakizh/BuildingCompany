@@ -31,6 +31,10 @@ namespace MVC_Practice.Controllers
             });
 
             employees = new SelectList(employeeSelectList, "id", "value");
+
+            var tabCreator = new TabCreator("HR");
+            tabCreator.ChooseTab("Orders");
+            ViewBag.tabs = tabCreator.GetTabs;
         }
 
         public ActionResult Index()

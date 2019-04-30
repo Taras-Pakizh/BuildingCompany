@@ -1,0 +1,70 @@
+﻿@using MVC_Practice.Models.ViewModels;
+
+@helper Tabs(IEnumerable<TabItem> items)
+{
+    if (items != null)
+    {
+        <ul class="nav nav-tabs">
+            @foreach (var item in items)
+            {
+                if (item.Selected)
+                {
+                    <li class="active">
+                        <a href="@item.href">@item.name</a>
+                    </li>
+                    continue;
+                }
+                <li>
+                    <a href="@item.href">
+                        @item.name
+                    </a>
+                </li>
+            }
+        </ul>
+
+        <br />
+
+        if (!items.Any(x => x.Selected == true))
+        {
+            @TabHelper.UserInvitation()
+        }
+    }
+}
+
+@helper UserInvitation()
+{
+    if (User.IsInRole("admin"))
+    {
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Welcome @User.Identity.Name</h2>
+                <p>
+                    You authorized as administrator
+                </p>
+            </div>
+            <p>You can manage roles and users of the system</p>
+        </div>
+    }
+    else if (User.IsInRole("Storage man"))
+    {
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Welcome @User.Identity.Name</h2>
+                <p>
+                    You authorized as storage man
+                </p>
+            </div>
+        </div>
+    }
+    else if (User.IsInRole("HR"))
+    {
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Welcome @User.Identity.Name</h2>
+                <p>
+                    You authorized as HR
+                </p>
+            </div>
+        </div>
+    }
+}

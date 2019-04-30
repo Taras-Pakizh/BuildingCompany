@@ -24,6 +24,10 @@ namespace MVC_Practice.Controllers
 
             suppliers = new SelectList(context.Suppliers, "supplierID", "supplierName");
             resources = new SelectList(context.Resources, "resourceID", "resourceName");
+
+            var tabCreator = new TabCreator("Storage man");
+            tabCreator.ChooseTab("Purchases");
+            ViewBag.tabs = tabCreator.GetTabs;
         }
 
         public ActionResult Index()

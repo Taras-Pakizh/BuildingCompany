@@ -20,6 +20,9 @@ namespace MVC_Practice.Controllers
         {
             context = new DbModels();
 
+            var tabCreator = new TabCreator("HR");
+            tabCreator.ChooseTab("Order types");
+            ViewBag.tabs = tabCreator.GetTabs;
         }
 
         public ActionResult Index()

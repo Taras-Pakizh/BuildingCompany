@@ -34,6 +34,10 @@ namespace MVC_Practice.Controllers
            
             positions = new SelectList(context.Positions, "positionID", "positionName");
             departments = new SelectList(context.Departments, "departmentID", "dname");
+
+            var tabCreator = new TabCreator("HR");
+            tabCreator.ChooseTab("Employees");
+            ViewBag.tabs = tabCreator.GetTabs;
         }
 
         public ActionResult Index()

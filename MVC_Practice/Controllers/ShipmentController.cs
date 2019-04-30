@@ -20,11 +20,40 @@ namespace MVC_Practice.Controllers
 
         private SelectList storages;
 
+        //private TabCreator tabCreator;
+
         public ShipmentController() : base()
         {
             context = new DbModels();
             
             storages = new SelectList(context.Storages, "storageID", "storageAddres");
+
+            var tabCreator = new TabCreator("Storage man");
+            
+            string action = System.Web.HttpContext.Current.Request.RequestContext.RouteData.GetRequiredString("action");
+
+            switch (action)
+            {
+                case "OpenOrder":
+                    tabCreator.ChooseTab("Purchases");
+                    break;
+                case "OpenItem":
+                    tabCreator.ChooseTab("Purchases");
+                    break;
+                case "Delete":
+                    tabCreator.ChooseTab("Shipment to storages");
+                    break;
+                case "OpenShipmentToStorage":
+                    tabCreator.ChooseTab("Shipment to storages");
+                    break;
+                case "ShipmentToStorages":
+                    tabCreator.ChooseTab("Shipment to storages");
+                    break;
+                case "Update":
+                    tabCreator.ChooseTab("Shipment to storages");
+                    break;
+            }
+            ViewBag.tabs = tabCreator.GetTabs;
         }
 
         [HttpGet]

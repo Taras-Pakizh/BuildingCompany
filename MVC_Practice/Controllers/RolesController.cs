@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
+using MVC_Practice.Repository;
 
 namespace MVC_Practice.Controllers
 {
@@ -20,6 +21,13 @@ namespace MVC_Practice.Controllers
             get { return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>(); }
         }
         
+        public RolesController() : base()
+        {
+            var tabCreator = new TabCreator("admin");
+            tabCreator.ChooseTab("Roles");
+            ViewBag.tabs = tabCreator.GetTabs;
+        }
+
         public ActionResult Index()
         {
             return View(RoleManager.Roles);

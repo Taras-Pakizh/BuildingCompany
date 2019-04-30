@@ -21,6 +21,10 @@ namespace MVC_Practice.Controllers
         public StorageController() : base()
         {
             context = new DbModels();
+
+            var tabCreator = new TabCreator("Storage man");
+            tabCreator.ChooseTab("Storages");
+            ViewBag.tabs = tabCreator.GetTabs;
         }
 
         [HttpGet]

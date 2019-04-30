@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace MVC_Practice.Controllers
 {
+    [Authorize(Roles = "admin, Storage man")]
     public class SendingController : Controller
     {
         private DbModels context;
@@ -32,6 +33,10 @@ namespace MVC_Practice.Controllers
 
             _projectStages = new SelectList(stagesCheckbox, "id", "value");
             _storages = new SelectList(context.Storages, "storageID", "storageAddres");
+
+            var tabCreator = new TabCreator("Storage man");
+            tabCreator.ChooseTab("Sendings");
+            ViewBag.tabs = tabCreator.GetTabs;
         }
 
         [HttpGet]

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MVC_Practice.Models.Identity;
+using MVC_Practice.Models.ViewModels;
+using MVC_Practice.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +31,6 @@ namespace MVC_Practice.Controllers
         {
             get { return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>(); }
         }
-
         
         public ActionResult Index()
         {
@@ -73,18 +74,27 @@ namespace MVC_Practice.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Admin()
         {
+            var tabCreator = new TabCreator("admin");
+            ViewBag.tabs = tabCreator.GetTabs;
+
             return View();
         }
 
         [Authorize(Roles = "admin, HR")]
         public ActionResult HR()
         {
+            var tabCreator = new TabCreator("HR");
+            ViewBag.tabs = tabCreator.GetTabs;
+
             return View();
         }
 
         [Authorize(Roles = "admin, Storage man")]
         public ActionResult StorageMan()
         {
+            var tabCreator = new TabCreator("Storage man");
+            ViewBag.tabs = tabCreator.GetTabs;
+
             return View();
         }
 
