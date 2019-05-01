@@ -1,4 +1,5 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
 @model DeliveryOrder
 @{
     IEnumerable<DeliveryOrder> order = new List<DeliveryOrder>() { Model };
@@ -30,7 +31,7 @@
                 <div class="row">
 
                     <div class="form-group">
-                        <input type="hidden" name="orderID" value="@Model.deliveryOrderID" />
+                        <input type="hidden" name="orderID" value="@Model.Id" />
                     </div>
 
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New storage</button>

@@ -1,10 +1,12 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
 
 @helper PositionsList(IEnumerable<Position> Model, bool IsReadonly)
 {
     <tr>
         <th>Position</th>
-        <th>Salary</th>
+        
         @if (!IsReadonly)
         {
             <th></th>
@@ -15,7 +17,7 @@
     {
         <tr>
             <td>@item.positionName</td>
-            <td>@item.salary</td>
+            
 
             @if (!IsReadonly)
             {

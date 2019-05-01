@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using MVC_Practice.Models.DbModels;
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 using MVC_Practice.Models.ViewModels;
 
@@ -16,19 +18,19 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, Storage man")]
     public class SendingController : Controller
     {
-        private DbModels context;
+        private CourseworkDBContext context;
 
         private SelectList _projectStages;
         private SelectList _storages;
 
         public SendingController() : base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
 
-            var stagesCheckbox = context.ProjectStages.Select(x => new
+            var stagesCheckbox = context.Projects.Select(x => new
             {
-                id = x.projectStageID,
-                value = "Project: " + x.Project.pname + " Stage: " + x.Stage.stageName
+                id = x.Id,
+                value = "Project: " + x.Name
             });
 
             _projectStages = new SelectList(stagesCheckbox, "id", "value");
@@ -97,7 +99,7 @@ namespace MVC_Practice.Controllers
             if (model == null)
                 return HttpNotFound();
 
-            _projectStages.Single(x => x.Value == model.projectStageID.ToString()).Selected = true;
+            _projectStages.Single(x => x.Value == model.projectID.ToString()).Selected = true;
             ViewBag.stages = _projectStages;
 
             ViewBag.min = 1;

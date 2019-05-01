@@ -26,7 +26,7 @@ namespace MVC_Practice.Models.DbModels
 
         public int? deliveryOrderID { get; set; }
 
-        public virtual DeliveryOrder DeliveryOrder { get; set; }
+        public virtual DeliveryOrderr DeliveryOrder { get; set; }
 
         public virtual Resource Resource { get; set; }
 

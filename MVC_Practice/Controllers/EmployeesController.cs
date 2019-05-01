@@ -5,9 +5,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
-using MVC_Practice.Models.DbModels;
-using MVC_Practice.Models.Identity;
+
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
+
+//using MVC_Practice.Models.Identity;
 using MVC_Practice.Repository;
+
 using Microsoft.AspNet.Identity.Owin;
 
 namespace MVC_Practice.Controllers
@@ -15,25 +20,19 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, HR")]
     public class EmployeesController : Controller
     {
-        private ApplicationUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-        }
 
-        private DbModels context;
+
+        private CourseworkDBContext context;
 
         private SelectList positions;
         private SelectList departments;
         
         public EmployeesController():base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
            
             positions = new SelectList(context.Positions, "positionID", "positionName");
-            departments = new SelectList(context.Departments, "departmentID", "dname");
+            departments = new SelectList(context.Departments, "Id", "Name");
 
             var tabCreator = new TabCreator("HR");
             tabCreator.ChooseTab("Employees");
@@ -49,11 +48,13 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Employee employee)
+        public async Task<ActionResult> Create(Employee employee, int positionID, int DepartmentId)
         {
-            //employee.employeeID = context.Employees.Max(x => x.employeeID) + 1;
+            
             using(var repository = new Repository<Employee>())
             {
+                employee.Department = repository.context.Departments.Find(DepartmentId);
+                employee.Position = repository.context.Positions.Find(positionID);
                 if (repository.Add(employee))
                 {
                     await repository.SaveAsync();
@@ -103,7 +104,7 @@ namespace MVC_Practice.Controllers
                 return HttpNotFound();
 
             positions.Single(x => x.Value == employee.Position.positionID.ToString()).Selected = true;
-            departments.Single(x => x.Value == employee.Department.departmentID.ToString()).Selected = true;
+            departments.Single(x => x.Value == employee.Department.Id.ToString()).Selected = true;
 
             ViewBag.positions = positions;
             ViewBag.departments = departments;
@@ -112,12 +113,14 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost, ActionName("Update")]
-        public ActionResult UpdateConfirmed(Employee employee)
+        public ActionResult UpdateConfirmed(Employee employee, int positionID, int DepartmentId)
         {
             if (employee == null)
                 return HttpNotFound();
             using(var repository = new Repository<Employee>())
             {
+                employee.Department = repository.context.Departments.Find(DepartmentId);
+                employee.Position = repository.context.Positions.Find(positionID);
                 if (repository.Update(employee))
                 {
                     repository.Save();

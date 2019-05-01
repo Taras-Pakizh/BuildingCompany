@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using MVC_Practice.Models.DbModels;
+
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 using System.Data.Entity;
 using System.Threading.Tasks;
 
@@ -10,12 +13,12 @@ namespace MVC_Practice.Repository
 {
     public class Repository<Model>:IDisposable where Model : class
     {
-        private DbModels context;
+        public CourseworkDBContext context;
         private DbSet<Model> set;
 
         public Repository()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
             set = context.Set<Model>();
         }
 

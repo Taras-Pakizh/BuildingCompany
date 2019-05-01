@@ -11,7 +11,7 @@ namespace MVC_Practice.Models.DbModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Supplier()
         {
-            DeliveryOrders = new HashSet<DeliveryOrder>();
+            DeliveryOrders = new HashSet<DeliveryOrderr>();
         }
 
         public int supplierID { get; set; }
@@ -26,6 +26,6 @@ namespace MVC_Practice.Models.DbModels
         public string supplierEmail { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryOrder> DeliveryOrders { get; set; }
+        public virtual ICollection<DeliveryOrderr> DeliveryOrders { get; set; }
     }
 }

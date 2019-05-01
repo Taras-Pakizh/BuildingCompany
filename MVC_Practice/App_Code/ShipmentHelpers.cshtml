@@ -1,7 +1,9 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
 
 
-@helper ContentList(IEnumerable<DeliverysContent> Model, IList<bool> isItemsStored, bool IsReadonly)
+@helper ContentList(IEnumerable<Content> Model, IList<bool> isItemsStored, bool IsReadonly)
 {
     <tr>
         <th>Resource</th>
@@ -17,9 +19,9 @@
     foreach (var item in Model)
     {
         <tr>
-            <td>@item.Resource.resourceName</td>
-            <td>@item.resourcePrice</td>
-            <td>@item.contentAmount</td>
+            <td>@item.Resource.Name</td>
+            <td>@item.Price</td>
+            <td>@item.Amount</td>
             @if (!IsReadonly)
             {
                 <td>
@@ -30,7 +32,7 @@
                     else
                     {
                         <form class="form-inline" method="get" action="/Shipment/OpenItem">
-                            <input type="hidden" value="@item.contentID" name="id" />
+                            <input type="hidden" value="@item.Id" name="id" />
                             <input type="submit" value="Shipment" class="btn btn-success" />
                         </form>
                     }
@@ -52,32 +54,32 @@
             <th></th>
         }
     </tr>
-    foreach (var item in Model)
+    foreach (var item in Model.ToList())
     {
-    <tr>
-        <td>@item.storageAddres</td>
-        @if (!IsReadonly)
-        {
-            <td>
-                <form class="form-inline" method="get" action="/Storage/OpenStorage">
-                    <input type="hidden" value="@item.storageID" name="id" />
-                    <input type="submit" value="Open" class="btn btn-primary" />
-                </form>
-            </td>
-            <td>
-                <form class="form-inline" method="get" action="/Storage/Update">
-                    <input type="hidden" value="@item.storageID" name="id" />
-                    <input type="submit" value="Update" class="btn btn-warning" />
-                </form>
-            </td>
-            <td>
-                <form class="form-inline" method="get" action="/Storage/Delete">
-                    <input type="hidden" value="@item.storageID" name="id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-            </td>
-        }
-    </tr>
+        <tr>
+            <td>@item.storageAddres</td>
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Storage/OpenStorage">
+                        <input type="hidden" value="@item.storageID" name="id" />
+                        <input type="submit" value="Open" class="btn btn-primary" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Storage/Update">
+                        <input type="hidden" value="@item.storageID" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Storage/Delete">
+                        <input type="hidden" value="@item.storageID" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+            }
+        </tr>
     }
 }
 
@@ -86,17 +88,17 @@
     <tr>
         <th>Resource</th>
         <th>Amount</th>
-        @if(!IsReadonly)
+        @if (!IsReadonly)
         {
             <th></th>
         }
     </tr>
-    foreach (var item in Model)
+    foreach (var item in Model.ToList())
     {
         <tr>
-            <td>@item.Resource.resourceName</td>
+            <td>@item.Resource.Name</td>
             <td>@item.resourceAmount</td>
-            @if(!IsReadonly)
+            @if (!IsReadonly)
             {
                 <td>
                     <form class="form-inline" method="get" action="/Sending/Add">
@@ -124,36 +126,36 @@
         }
     </tr>
 
-    foreach (var item in Model)
+    foreach (var item in Model.ToList())
     {
-    <tr>
-        <td>@item.shipmentDate</td>
-        <td>@item.Resources_Storages.Resource.resourceName</td>
-        <td>@item.resourceAmount</td>
-        <td>@item.Resources_Storages.Storage.storageAddres</td>
+        <tr>
+            <td>@item.shipmentDate</td>
+            <td>@item.Resources_Storages.Resource.Name</td>
+            <td>@item.resourceAmount</td>
+            <td>@item.Resources_Storages.Storage.storageAddres</td>
 
-        @if (!IsReadonly)
-        {
-            <td>
-                <form class="form-inline" method="get" action="/Shipment/OpenShipmentToStorage">
-                    <input type="hidden" value="@item.shipmentToStorageID" name="id" />
-                    <input type="submit" value="Open" class="btn btn-primary" />
-                </form>
-            </td>
-            <td>
-                <form class="form-inline" method="get" action="/Shipment/Update">
-                    <input type="hidden" value="@item.shipmentToStorageID" name="id" />
-                    <input type="submit" value="Update" class="btn btn-warning" />
-                </form>
-            </td>
-            <td>
-                <form class="form-inline" method="get" action="/Shipment/Delete">
-                    <input type="hidden" value="@item.shipmentToStorageID" name="id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-            </td>
-        }
-    </tr>
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Shipment/OpenShipmentToStorage">
+                        <input type="hidden" value="@item.shipmentToStorageID" name="id" />
+                        <input type="submit" value="Open" class="btn btn-primary" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Shipment/Update">
+                        <input type="hidden" value="@item.shipmentToStorageID" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Shipment/Delete">
+                        <input type="hidden" value="@item.shipmentToStorageID" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+            }
+        </tr>
     }
 }
 
@@ -168,7 +170,7 @@
         <li class="list-group-item">
             <h4>Resource type:</h4>
 
-            <b>@Model.Resources_Storages.Resource.resourceName</b>
+            <b>@Model.Resources_Storages.Resource.Name</b>
         </li>
         <li class="list-group-item">
             <h4>Amount:</h4>
@@ -184,14 +186,14 @@
             <h4>Order</h4>
 
             <table class="table">
-                @PurchaseHelpers.OrdersList(new List<DeliveryOrder>() { Model.DeliverysContent.DeliveryOrder }, new List<bool>() { false }, true, true)
+                @PurchaseHelpers.OrdersList(new List<DeliveryOrder>() { Model.DeliverysContent.Order }, new List<bool>() { false }, true, true)
             </table>
         </li>
         <li class="list-group-item">
             <h4>Content</h4>
 
             <table class="table">
-                @PurchaseHelpers.ContentList(new List<DeliverysContent>() { Model.DeliverysContent }, true)
+                @PurchaseHelpers.ContentList(new List<Content>() { Model.DeliverysContent }, true)
             </table>
         </li>
     </ul>

@@ -1,4 +1,5 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
 @model DeliveryOrder
 @{
     ViewBag.Title = "OpenPDF";
@@ -19,5 +20,5 @@
 <br />
 
 <div class="container">
-    <a type="button" class="btn btn-primary" href="~/Purchase/Open?id=@Model.deliveryOrderID">Back</a>
+    <a type="button" class="btn btn-primary" href="~/Purchase/Open?id=@Model.Id">Back</a>
 </div>

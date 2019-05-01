@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using MVC_Practice.Models.DbModels;
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 using MVC_Practice.Models.ViewModels;
 
@@ -16,11 +18,11 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, Storage man")]
     public class StorageController : Controller
     {
-        private DbModels context;
+        private CourseworkDBContext context;
 
         public StorageController() : base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
 
             var tabCreator = new TabCreator("Storage man");
             tabCreator.ChooseTab("Storages");

@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-using MVC_Practice.Models.DbModels;
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 
 namespace MVC_Practice.Controllers
@@ -13,11 +15,11 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, HR")]
     public class PositionsController : Controller
     {
-        DbModels context;
+        CourseworkDBContext context;
 
         public PositionsController() : base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
 
             var tabCreator = new TabCreator("HR");
             tabCreator.ChooseTab("Positions");

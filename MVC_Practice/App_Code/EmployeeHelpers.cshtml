@@ -1,18 +1,20 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
 
-@helper GenderToString(string gender)
+@helper GenderToString(Gender gender)
 {
-    if (gender == "M")
+    if (gender == Gender.Male)
     {
         <td>Male</td>
     }
-    else if (gender == "F")
+    else if (gender == Gender.Female)
     {
         <td>Female</td>
     }
-    else
+    else if(gender == Gender.Neutral)
     {
-        <td>Unknown</td>
+        <td>Neutral</td>
     }
 }
 
@@ -25,37 +27,41 @@
         <th>Birthday</th>
         <th>Gender</th>
         <th>Department</th>
+        <th>Email</th>
+        <th>Phone number</th>
         @if (!IsReadonly)
         {
             <th></th>
             <th></th>
         }
-        
+
     </tr>
     foreach (var item in Model)
     {
-    <tr>
-        <td>@item.firstname</td>
-        <td>@item.lastname</td>
-        <td>@item.Position.positionName</td>
-        <td>@item.birthday</td>
-        @GenderToString(item.gender)
-        <td>@item.Department.dname</td>
-        @if (!IsReadonly)
-        {
-            <td>
-                <form class="form-inline" method="get" action="/Employees/Delete">
-                    <input type="hidden" value="@item.employeeID" name="id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-            </td>
-            <td>
-                <form class="form-inline" method="get" action="/Employees/Update">
-                    <input type="hidden" value="@item.employeeID" name="id" />
-                    <input type="submit" value="Update" class="btn btn-warning" />
-                </form>
-            </td>
-        }
-    </tr>
+        <tr>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.Position.positionName</td>
+            <td>@item.Birthday</td>
+            @GenderToString(item.Gender)
+            <td>@item.Department.Name</td>
+            <td>@item.Email</td>
+            <td>@item.PhoneNumber</td>
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Employees/Delete">
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Employees/Update">
+                        <input type="hidden" value="@item.Id" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+            }
+        </tr>
     }
 }

@@ -132,3 +132,6 @@ D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\PdfSharp.xml
 D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\PdfSharp.Charting.xml
 D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\de\PdfSharp.resources.dll
 D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\de\PdfSharp.Charting.resources.dll
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\Generate.dll
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\Generate.pdb
+D:\Languages\C#\Projects\MVC_Practice\MVC_Practice\bin\Generate.dll.config

@@ -1,5 +1,6 @@
-﻿@using MVC_Practice.Models.DbModels
-@model DeliverysContent
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
+@model Content
 @{
     ViewBag.Title = "UpdateItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,24 +11,24 @@
 <form method="post" action="/Purchase/UpdateItem" name="UpdateForm" class="form-inline">
     <div class="row">
 
-        <input type="hidden" name="contentID" value="@Model.contentID" />
+        <input type="hidden" name="Id" value="@Model.Id" />
 
         <div class="form-group">
-            <input type="hidden" name="deliveryOrderID" value="@Model.deliveryOrderID" />
+            <input type="hidden" name="DeliveryOrder_Id" value="@Model.Order.Id" />
         </div>
 
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New resource</button>
 
         <div class="checkbox">
-            @Html.DropDownList("resourceID", ViewBag.resources as SelectList, new { @class = "form-control" })
+            @Html.DropDownList("Resource_Id", ViewBag.resources as SelectList, new { @class = "form-control" })
         </div>
 
         <div class="form-group">
-            <input class="form-control" type="number" name="contentAmount" value="@Model.contentAmount" required>
+            <input class="form-control" type="number" name="Amount" value="@Model.Amount" required>
         </div>
 
         <div class="form-group">
-            <input class="form-control" type="number" name="resourcePrice" value="@Model.resourcePrice" required>
+            <input class="form-control" type="number" name="Price" value="@Model.Price" required>
         </div>
 
         <div class="form-group">
@@ -50,7 +51,7 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="resourceName" placeholder="Resource name" required>
+                            <input class="form-control" type="text" name="Name" placeholder="Resource name" required>
                         </div>
                     </div>
 

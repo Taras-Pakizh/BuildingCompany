@@ -1,7 +1,8 @@
-﻿@using MVC_Practice.Models.DbModels
-@model DeliverysContent
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
+@model Content
 @{
-    IEnumerable<DeliverysContent> item = new List<DeliverysContent>() { Model };
+    IEnumerable<Content> item = new List<Content>() { Model };
 }
 @{
     ViewBag.Title = "OpenItem";
@@ -19,12 +20,12 @@
 @if (ViewBag.max != 0)
 {
     <h3>Add shipment</h3>
-    
+
     <div class="container-fluid">
         <form method="post" action="/Shipment/AddItem" name="AddForm" class="form-horizontal">
             <div class="row">
-                <input type="hidden" name="contentID" value="@Model.contentID" required />
-                <input type="hidden" name="resourceID" value="@Model.resourceID" required />
+                <input type="hidden" name="contentID" value="@Model.Id" required />
+                <input type="hidden" name="resourceID" value="@Model.Resource.Id" required />
 
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New storage</button>
 
@@ -54,13 +55,14 @@
     </div>
 
     <br />
-} else
+}
+else
 {
     <h3>This content is already on storage</h3>
 }
 
 <div class="container">
-    <a type="button" class="btn btn-primary" href="~/Shipment/OpenOrder?id=@Model.deliveryOrderID">Back</a>
+    <a type="button" class="btn btn-primary" href="~/Shipment/OpenOrder?id=@Model.Order.Id">Back</a>
 </div>
 
 <div class="container">

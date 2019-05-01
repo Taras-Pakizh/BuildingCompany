@@ -1,10 +1,13 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
 
 @helper DepartmentsList(IEnumerable<Department> Model, bool IsReadonly)
 {
     <tr>
-        <th>Position</th>
-        
+        <th>Name</th>
+        <th>Address</th>
+
         @if (!IsReadonly)
         {
             <th></th>
@@ -14,20 +17,21 @@
     foreach (var item in Model)
     {
         <tr>
-            <td>@item.dname</td>
-            
+            <td>@item.Name</td>
+            <td>@item.Address</td>
+
 
             @if (!IsReadonly)
             {
                 <td>
                     <form class="form-inline" method="get" action="/Departments/Delete">
-                        <input type="hidden" value="@item.departmentID" name="id" />
+                        <input type="hidden" value="@item.Id" name="id" />
                         <input type="submit" value="Delete" class="btn btn-danger" />
                     </form>
                 </td>
                 <td>
                     <form class="form-inline" method="get" action="/Departments/Update">
-                        <input type="hidden" value="@item.departmentID" name="id" />
+                        <input type="hidden" value="@item.Id" name="id" />
                         <input type="submit" value="Update" class="btn btn-warning" />
                     </form>
                 </td>

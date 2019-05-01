@@ -6,10 +6,10 @@ namespace MVC_Practice.Models.DbModels
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class DeliveryOrder
+    public partial class DeliveryOrderr
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DeliveryOrder()
+        public DeliveryOrderr()
         {
             DeliverysContents = new HashSet<DeliverysContent>();
         }

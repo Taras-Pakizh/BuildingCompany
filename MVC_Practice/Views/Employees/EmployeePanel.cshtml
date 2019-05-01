@@ -1,4 +1,5 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
 @model IEnumerable<Employee>
 
 @{
@@ -8,48 +9,60 @@
 <h2>Employees</h2>
 
 <div class="container-fluid">
-        <div class="btn-group btn-group-justified">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#AddCollapse">Add</button>
-            </div>
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#AddCollapse">Add</button>
         </div>
-        <br />
-        <div class="container-fluid collapse" id="AddCollapse">
-            <form method="post" action="/Employees/Create" name="AddForm" class="form-inline">
-                <div class="row">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="firstName" placeholder="First name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="lastName" placeholder="Last name" required>
-                    </div>
-
-                    <div class="checkbox">
-                        @Html.DropDownList("positionID", ViewBag.positions as SelectList, new { @class = "form-control"})
-                    </div>
-
-                    <div class="form-group">
-                        <input class="form-control" type="date" name="birthday" required>
-                    </div>
-
-                    <div class="form-group">
-                        <select name="gender" class="form-control">
-                            <option value="F">Female</option>
-                            <option value="M">Male</option>
-                        </select>
-                    </div>
-
-                    <div class="checkbox">
-                        @Html.DropDownList("departmentID", ViewBag.departments as SelectList, new { @class = "form-control" })
-                    </div>
-
-                    <div class="form-group">
-                        <input type="submit" value="Add" class="btn btn-primary form-control" />
-                    </div>
+    </div>
+    <br />
+    <div class="container-fluid collapse" id="AddCollapse">
+        <form method="post" action="/Employees/Create" name="AddForm" class="form-inline">
+            <div class="row">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="FirstName" placeholder="First name" required>
                 </div>
-            </form>
-        </div>  
+
+                <div class="form-group">
+                    <input class="form-control" type="text" name="LastName" placeholder="Last name" required>
+                </div>
+
+                <div class="checkbox">
+                    @Html.DropDownList("positionID", ViewBag.positions as SelectList, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="date" name="Birthday" required>
+                </div>
+
+                <div class="form-group">
+                    <select name="Gender" class="form-control">
+                        <option value="1">Female</option>
+                        <option value="0">Male</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="number" min="0" class="form-control" name="Salary" placeholder="Salary" required />
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" class="form-control" name="PhoneNumber" placeholder="Phone number" required />
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control" name="Email" placeholder="Email" required />
+                </div>
+
+                <div class="checkbox">
+                    @Html.DropDownList("DepartmentId", ViewBag.departments as SelectList, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Add" class="btn btn-primary form-control" />
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <br />

@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using MVC_Practice.Models.DbModels;
+
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 
 using MVC_Practice.Repository;
 
@@ -13,21 +16,21 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, HR")]
     public class EmployeeOrdersController : Controller
     {
-        DbModels context;
+        CourseworkDBContext context;
 
         private SelectList orders;
         private SelectList employees;
 
         public EmployeeOrdersController() : base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
 
             orders = new SelectList(context.OrderTypes, "orderTypeID", "orderName");
 
             var employeeSelectList = context.Employees.Select(x => new
             {
-                id = x.employeeID,
-                value = x.firstname + " " + x.lastname
+                id = x.Id,
+                value = x.FirstName + " " + x.LastName
             });
 
             employees = new SelectList(employeeSelectList, "id", "value");

@@ -1,4 +1,5 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
 @{
     ViewBag.Title = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,14 +10,14 @@
 
 <form method="post" action="/Employees/Update" class="form-inline">
     <div class="row">
-        <input type="hidden" name="employeeID" value="@Model.employeeID" />
+        <input type="hidden" name="Id" value="@Model.Id" />
 
         <div class="form-group">
-            <input class="form-control" type="text" name="firstName" value="@Model.firstname" required>
+            <input class="form-control" type="text" name="FirstName" value="@Model.FirstName" placeholder="First name" required>
         </div>
 
         <div class="form-group">
-            <input class="form-control" type="text" name="lastName" value="@Model.lastname" required>
+            <input class="form-control" type="text" name="LastName" value="@Model.LastName" placeholder="Last name" required>
         </div>
 
         <div class="checkbox">
@@ -24,33 +25,46 @@
         </div>
 
         <div class="form-group">
-            <input class="form-control" type="datetime" name="birthday" value="@Model.birthday" required>
+            <input class="form-control" type="datetime" value="@Model.Birthday" name="Birthday" required>
         </div>
 
         <div class="checkbox">
-            <select name="gender" class="form-control">
-                @if (Model.gender == "F")
+            <select name="Gender" class="form-control">
+                @if (Model.Gender == Gender.Female)
                 {
-                    <option value="F" selected>Female</option>
-                    <option value="M">Male</option>
+                    <option value="1" selected>Female</option>
+                    <option value="0">Male</option>
                 }
                 else
                 {
-                    <option value="M" selected>Male</option>
-                    <option value="F">Female</option>
+                    <option value="0" selected>Male</option>
+                    <option value="1">Female</option>
                 }
             </select>
         </div>
 
-        <div class="checkbox">
-            @Html.DropDownList("departmentID", ViewBag.departments as SelectList, new { @class = "form-control" })
+        <div class="form-group">
+            <input type="number" min="0" value="@Model.Salary" class="form-control" name="Salary" placeholder="Salary" required />
         </div>
+
+        <div class="form-group">
+            <input type="tel" value="@Model.PhoneNumber" class="form-control" name="PhoneNumber" placeholder="Phone number" required />
+        </div>
+
+        <div class="form-group">
+            <input type="email" value="@Model.Email" class="form-control" name="Email" placeholder="Email" required />
+        </div>
+
+        <div class="checkbox">
+            @Html.DropDownList("DepartmentId", ViewBag.departments as SelectList, new { @class = "form-control" })
+        </div>
+
 
         <div class="form-group">
             <input type="submit" value="Update" class="btn btn-warning" />
         </div>
 
-        
+
     </div>
 </form>
 

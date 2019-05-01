@@ -1,4 +1,5 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
 @model DeliveryOrder
 @{
     ViewBag.Title = "Update";
@@ -20,15 +21,15 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="supplierName" placeholder="Name" required>
+                            <input class="form-control" type="text" name="Name" placeholder="Name" required>
                         </div>
 
                         <div class="form-group">
-                            <input class="form-control" type="tel" name="supplierPhoneNumber" placeholder="phone number" required>
+                            <input class="form-control" type="tel" name="PhoneNumber" placeholder="phone number" required>
                         </div>
 
                         <div class="form-group">
-                            <input class="form-control" type="email" name="supplierEmail" placeholder="emain" required>
+                            <input class="form-control" type="email" name="Email" placeholder="emain" required>
                         </div>
                     </div>
 
@@ -47,19 +48,21 @@
 <form method="post" action="/Purchase/Update" name="UpdateForm" class="form-inline">
     <div class="row">
 
-        <input type="hidden" name="deliveryOrderID" value="@Model.deliveryOrderID"  required/>
+        <input type="hidden" name="Id" value="@Model.Id" required />
 
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New supplier</button>
 
         <div class="checkbox">
-            @Html.DropDownList("supplierID", ViewBag.suppliers as SelectList, new { @class = "form-control" })
+            @Html.DropDownList("Supplier_Id", ViewBag.suppliers as SelectList, new { @class = "form-control" })
         </div>
 
         <div class="form-group">
-            <input class="form-control" type="datetime" name="deliveryOrderDate" value="@Model.deliveryOrderDate" required>
+            <input class="form-control" type="datetime" value="@Model.OrderDate" name="OrderDate" placeholder="Date" required>
         </div>
 
-        <input type="hidden" name="sumPrice" value="@Model.sumPrice" required />
+        <div class="form-group">
+            <input type="submit" value="Add" class="btn btn-primary form-control" />
+        </div>
 
         <div class="form-group">
             <input type="submit" value="Update" class="btn btn-primary form-control" />

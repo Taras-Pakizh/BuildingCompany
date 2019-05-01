@@ -1,4 +1,6 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
 
 
 @helper SendingList(IEnumerable<StorageShipment> Model, bool IsReadonly)
@@ -7,7 +9,7 @@
         <th>Resource</th>
         <th>Amount</th>
         <th>Date</th>
-        <th>Project stage</th>
+        <th>Project</th>
         <th>Storage</th>
         <th></th>
         @if (!IsReadonly)
@@ -17,38 +19,38 @@
         }
     </tr>
 
-    foreach (var item in Model)
+    foreach (var item in Model.ToList())
     {
-    <tr>
-        <td>@item.Resources_Storages.Resource.resourceName</td>
-        <td>@item.resourceAmount</td>
-        <td>@item.outDate</td>
-        <td><i>Project:</i> @item.ProjectStage.Project.pname <i>Stage:</i> @item.ProjectStage.Stage.stageName</td>
-        <td>@item.Resources_Storages.Storage.storageAddres</td>
-        
-        <td>
-            <form class="form-inline" method="get" action="/Sending/OpenSending">
-                <input type="hidden" value="@item.storageShipmentID" name="id" />
-                <input type="submit" value="Open" class="btn btn-primary" />
-            </form>
-        </td>
+        <tr>
+            <td>@item.Resources_Storages.Resource.Name</td>
+            <td>@item.resourceAmount</td>
+            <td>@item.outDate</td>
+            <td>@item.ProjectStage.Name</td>
+            <td>@item.Resources_Storages.Storage.storageAddres</td>
 
-        @if (!IsReadonly)
-        {
             <td>
-                <form class="form-inline" method="get" action="/Sending/Update">
+                <form class="form-inline" method="get" action="/Sending/OpenSending">
                     <input type="hidden" value="@item.storageShipmentID" name="id" />
-                    <input type="submit" value="Update" class="btn btn-warning" />
+                    <input type="submit" value="Open" class="btn btn-primary" />
                 </form>
             </td>
-            <td>
-                <form class="form-inline" method="get" action="/Sending/Delete">
-                    <input type="hidden" value="@item.storageShipmentID" name="id" />
-                    <input type="submit" value="Delete" class="btn btn-danger" />
-                </form>
-            </td>
-        }
-    </tr>
+
+            @if (!IsReadonly)
+            {
+                <td>
+                    <form class="form-inline" method="get" action="/Sending/Update">
+                        <input type="hidden" value="@item.storageShipmentID" name="id" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                </td>
+                <td>
+                    <form class="form-inline" method="get" action="/Sending/Delete">
+                        <input type="hidden" value="@item.storageShipmentID" name="id" />
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+            }
+        </tr>
     }
 }
 
@@ -63,7 +65,7 @@
         <li class="list-group-item">
             <h4>Resource type:</h4>
 
-            <b>@Model.Resources_Storages.Resource.resourceName</b>
+            <b>@Model.Resources_Storages.Resource.Name</b>
         </li>
         <li class="list-group-item">
             <h4>Amount:</h4>
@@ -78,16 +80,13 @@
         <li class="list-group-item">
             <h4>Project:</h4>
 
-            <b>@Model.ProjectStage.Project.pname</b>
+            <b>@Model.ProjectStage.Name</b>
         </li>
         <li class="list-group-item">
-            <h4>Stage:</h4>
-
-            <b>@Model.ProjectStage.Stage.stageName</b>
 
             <h5>Deadlines:</h5>
 
-            <b>from: @Model.ProjectStage.startDate to @Model.ProjectStage.endDate</b>
+            <b>from: @Model.ProjectStage.WorkBegining to @Model.ProjectStage.Deadline</b>
         </li>
     </ul>
 }

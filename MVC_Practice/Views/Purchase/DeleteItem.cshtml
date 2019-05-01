@@ -1,7 +1,8 @@
-﻿@using MVC_Practice.Models.DbModels
-@model DeliverysContent
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
+@model Content
 @{
-    IEnumerable<DeliverysContent> content = new List<DeliverysContent>() { Model };
+    IEnumerable<Content> content = new List<Content>() { Model };
 }
 @{
     ViewBag.Title = "DeleteItem";
@@ -15,6 +16,6 @@
 </table>
 
 <form method="post" action="/Purchase/DeleteItem" class="form-horizontal">
-    <input type="hidden" name="id" value="@Model.contentID" />
+    <input type="hidden" name="id" value="@Model.Id" />
     <input type="submit" value="Delete" class="btn btn-danger" />
 </form>

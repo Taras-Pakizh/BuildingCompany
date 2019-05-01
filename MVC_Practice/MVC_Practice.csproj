@@ -211,7 +211,7 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Models\DbModels\DbModels.cs" />
-    <Compile Include="Models\DbModels\DeliveryOrder.cs" />
+    <Compile Include="Models\DbModels\DeliveryOrderr.cs" />
     <Compile Include="Models\DbModels\DeliverysContent.cs" />
     <Compile Include="Models\DbModels\Department.cs" />
     <Compile Include="Models\DbModels\DetailedEmployee.cs" />
@@ -400,6 +400,12 @@
     <EmbeddedResource Include="Migrations\201901051725299_DataMigration.resx">
       <DependentUpon>201901051725299_DataMigration.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\LP\LP_6_semester\CourseDB\Project\Realization\Generate\Generate\Generate.csproj">
+      <Project>{3bbb559e-6830-4cc2-9326-0acddd033104}</Project>
+      <Name>Generate</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

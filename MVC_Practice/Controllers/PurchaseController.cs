@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-using MVC_Practice.Models.DbModels;
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 
 namespace MVC_Practice.Controllers
@@ -13,17 +15,17 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, Storage man")]
     public class PurchaseController : Controller
     {
-        private DbModels context;
+        private CourseworkDBContext context;
 
         private SelectList suppliers;
         private SelectList resources;
 
         public PurchaseController() : base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
 
-            suppliers = new SelectList(context.Suppliers, "supplierID", "supplierName");
-            resources = new SelectList(context.Resources, "resourceID", "resourceName");
+            suppliers = new SelectList(context.Suppliers, "Id", "Name");
+            resources = new SelectList(context.Resources, "Id", "Name");
 
             var tabCreator = new TabCreator("Storage man");
             tabCreator.ChooseTab("Purchases");
@@ -36,13 +38,13 @@ namespace MVC_Practice.Controllers
 
             var isStoraged = new List<bool>();
 
-            foreach(var order in context.DeliveryOrders)
+            foreach(var order in context.Orders.ToList())
             {
                 isStoraged.Add(true);
-                foreach (var item in order.DeliverysContents)
+                foreach (var item in order.Content.ToList())
                 {
-                    var shipments = context.ShipmentToStorages.Where(x => x.contentID == item.contentID);
-                    if (shipments.Count() == 0 || shipments.Sum(x => x.resourceAmount) < item.contentAmount)
+                    var shipments = context.ShipmentToStorages.Where(x => x.contentID == item.Id);
+                    if (shipments.Count() == 0 || shipments.Sum(x => x.resourceAmount) < item.Amount)
                     {
                         isStoraged[isStoraged.Count - 1] = false;
                         break;
@@ -52,7 +54,7 @@ namespace MVC_Practice.Controllers
 
             ViewBag.isStoraged = isStoraged;
 
-            return View(context.DeliveryOrders);
+            return View(context.Orders);
         }
 
         [HttpGet]
@@ -63,8 +65,8 @@ namespace MVC_Practice.Controllers
                 return HttpNotFound();
             }
 
-            var order = await context.DeliveryOrders.FindAsync(id);
-            var items = context.DeliverysContents.Where(x => x.deliveryOrderID == (int)id);
+            var order = await context.Orders.FindAsync(id);
+            var items = context.DeliveryContents.Where(x => x.Order.Id == (int)id);
 
             ViewBag.items = items;
             ViewBag.resources = resources;
@@ -73,10 +75,11 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Add(DeliveryOrder model)
+        public async Task<ActionResult> Add(DeliveryOrder model, int Supplier_Id)
         {
             using(var repository = new Repository<DeliveryOrder>())
             {
+                model.Supplier = repository.context.Suppliers.Find(Supplier_Id);
                 if (repository.Add(model))
                 {
                     await repository.SaveAsync();
@@ -86,14 +89,16 @@ namespace MVC_Practice.Controllers
                     return HttpNotFound();
                 }
             }
-            return RedirectToAction("Open", new { id = context.DeliveryOrders.Max(x=>x.deliveryOrderID) });
+            return RedirectToAction("Open", new { id = context.Orders.Max(x=>x.Id) });
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddItem(DeliverysContent model)
+        public async Task<ActionResult> AddItem(Content model, int Resource_Id, int DeliveryOrder_Id)
         {
-            using(var repository = new Repository<DeliverysContent>())
+            using(var repository = new Repository<Content>())
             {
+                model.Resource = repository.context.Resources.Find(Resource_Id);
+                model.Order = repository.context.Orders.Find(DeliveryOrder_Id);
                 if (repository.Add(model))
                 {
                     await repository.SaveAsync();
@@ -103,7 +108,7 @@ namespace MVC_Practice.Controllers
                     return HttpNotFound();
                 }
             }
-            return RedirectToAction("Open", new { id = model.deliveryOrderID });
+            return RedirectToAction("Open", new { id = DeliveryOrder_Id });
         }
 
         [HttpPost]
@@ -143,11 +148,11 @@ namespace MVC_Practice.Controllers
         [HttpGet]
         public ActionResult Update(int? id)
         {
-            var order = context.DeliveryOrders.Find(id);
+            var order = context.Orders.Find(id);
             if (order == null)
                 return HttpNotFound();
 
-            suppliers.Single(x => x.Value == order.supplierID.ToString()).Selected = true;
+            suppliers.Single(x => x.Value == order.Supplier.Id.ToString()).Selected = true;
 
             ViewBag.suppliers = suppliers;
 
@@ -157,11 +162,11 @@ namespace MVC_Practice.Controllers
         [HttpGet]
         public ActionResult UpdateItem(int? id)
         {
-            var item = context.DeliverysContents.Find(id);
+            var item = context.DeliveryContents.Find(id);
             if (item == null)
                 return HttpNotFound();
 
-            resources.Single(x => x.Value == item.resourceID.ToString()).Selected = true;
+            resources.Single(x => x.Value == item.Resource.Id.ToString()).Selected = true;
 
             ViewBag.resources = resources;
 
@@ -169,12 +174,13 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost, ActionName("Update")]
-        public ActionResult UpdateConfirmed(DeliveryOrder model)
+        public ActionResult UpdateConfirmed(DeliveryOrder model, int Supplier_Id)
         {
             if (ModelState.IsValid)
             {
                 using (var repository = new Repository<DeliveryOrder>())
                 {
+                    model.Supplier = repository.context.Suppliers.Find(Supplier_Id);
                     if (repository.Update(model))
                     {
                         repository.Save();
@@ -191,12 +197,14 @@ namespace MVC_Practice.Controllers
         }
 
         [HttpPost, ActionName("UpdateItem")]
-        public ActionResult UpdateItemConfirmed(DeliverysContent model)
+        public ActionResult UpdateItemConfirmed(Content model, int Resource_Id, int DeliveryOrder_Id)
         {
             if (ModelState.IsValid)
             {
-                using(var repository = new Repository<DeliverysContent>())
+                using(var repository = new Repository<Content>())
                 {
+                    model.Resource = repository.context.Resources.Find(Resource_Id);
+                    model.Order = repository.context.Orders.Find(DeliveryOrder_Id);
                     if (repository.Update(model))
                     {
                         repository.Save();
@@ -206,7 +214,7 @@ namespace MVC_Practice.Controllers
                         return HttpNotFound();
                     }
                 }
-                return RedirectToAction("Open", new { id = model.deliveryOrderID });
+                return RedirectToAction("Open", new { id = model.Order.Id });
             }
             return HttpNotFound();
         }
@@ -214,17 +222,17 @@ namespace MVC_Practice.Controllers
         [HttpGet]
         public ActionResult Delete(int? id)
         {
-            var order = context.DeliveryOrders.Find(id);
+            var order = context.Orders.Find(id);
             if (order == null)
                 return HttpNotFound();
-            ViewBag.orders = context.DeliverysContents.Where(x => x.deliveryOrderID == id);
+            ViewBag.orders = context.DeliveryContents.Where(x => x.Order.Id == id);
             return View(order);
         }
 
         [HttpGet]
         public ActionResult DeleteItem(int? id)
         {
-            var item = context.DeliverysContents.Find(id);
+            var item = context.DeliveryContents.Find(id);
             if (item == null)
                 return HttpNotFound();
             return View(item);
@@ -255,11 +263,11 @@ namespace MVC_Practice.Controllers
             if (id == null)
                 return HttpNotFound();
             int? returnId = null;
-            using (var repository = new Repository<DeliverysContent>())
+            using (var repository = new Repository<Content>())
             {
                 if (await repository.DeleteAsync((int)id))
                 {
-                    returnId = context.DeliverysContents.Find(id).deliveryOrderID;
+                    returnId = context.DeliveryContents.Find(id).Order.Id;
                     await repository.SaveAsync();
                 }
                 else
@@ -273,7 +281,7 @@ namespace MVC_Practice.Controllers
         [HttpGet]
         public ActionResult OpenPDF(int? id)
         {
-            var model = context.DeliveryOrders.Find(id);
+            var model = context.Orders.Find(id);
             if (model == null)
                 return HttpNotFound();
             return View(model);

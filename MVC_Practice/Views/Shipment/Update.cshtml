@@ -1,4 +1,5 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
 @model ShipmentToStorage
 @{
     ViewBag.Title = "Update";
@@ -10,8 +11,8 @@
 <form method="post" action="/Shipment/Update" name="UpdateForm" class="form-inline">
 
     <input type="hidden" name="shipmentToStorageID" value="@Model.shipmentToStorageID" required />
-    <input type="hidden" name="contentID" value="@Model.contentID" required/>
-    <input type="hidden" name="resourceStorageID" value="@Model.resourceStorageID"/>
+    <input type="hidden" name="contentID" value="@Model.contentID" required />
+    <input type="hidden" name="resourceStorageID" value="@Model.resourceStorageID" />
 
     <div class="form-group">
         <input class="form-control" type="datetime" name="shipmentDate" value="@Model.shipmentDate" required>

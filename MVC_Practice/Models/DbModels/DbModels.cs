@@ -13,7 +13,7 @@ namespace MVC_Practice.Models.DbModels
         }
 
         public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<DeliveryOrder> DeliveryOrders { get; set; }
+        public virtual DbSet<DeliveryOrderr> DeliveryOrders { get; set; }
         public virtual DbSet<DeliverysContent> DeliverysContents { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<EmployeeOrder> EmployeeOrders { get; set; }

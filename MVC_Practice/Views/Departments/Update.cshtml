@@ -1,5 +1,7 @@
-﻿
-@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
+
 @model Department
 
 @{
@@ -13,11 +15,15 @@
     <div class="row">
 
         <div class="form-group">
-            <input class="form-control" type="hidden" name="departmentID" value="@Model.departmentID" required>
+            <input class="form-control" type="hidden" name="Id" value="@Model.Id" required>
         </div>
 
         <div class="form-group">
-            <input class="form-control" type="text" name="dname" placeholder="Department" value="@Model.dname" required>
+            <input class="form-control" type="text" name="Name" value="@Model.Name" placeholder="Department" required>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" name="Address" value="@Model.Address" placeholder="Address" required />
         </div>
 
         <div class="form-group">

@@ -1,4 +1,5 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.Models;
 @model DeliveryOrder
 @{
     IEnumerable<DeliveryOrder> order = new List<DeliveryOrder>() { Model };
@@ -28,21 +29,21 @@
             <div class="row">
 
                 <div class="form-group">
-                    <input type="hidden" name="deliveryOrderID" value="@Model.deliveryOrderID" />
+                    <input type="hidden" name="DeliveryOrder_Id" value="@Model.Id" />
                 </div>
 
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">New resource</button>
 
                 <div class="checkbox">
-                    @Html.DropDownList("resourceID", ViewBag.resources as SelectList, new { @class = "form-control" })
+                    @Html.DropDownList("Resource_Id", ViewBag.resources as SelectList, new { @class = "form-control" })
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="number" name="contentAmount" placeholder="Amount" required>
+                    <input class="form-control" type="number" name="Amount" placeholder="Amount" required>
                 </div>
 
                 <div class="form-group">
-                    <input class="form-control" type="number" name="resourcePrice" placeholder="Price" required>
+                    <input class="form-control" type="number" name="Price" placeholder="Price" required>
                 </div>
 
                 <div class="form-group">
@@ -72,7 +73,7 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <input class="form-control" type="text" name="resourceName" placeholder="Resource name" required>
+                            <input class="form-control" type="text" name="Name" placeholder="Resource name" required>
                         </div>
                     </div>
 
@@ -89,6 +90,6 @@
 </div>
 
 <div class="container">
-    <a type="button" class="btn btn-default" href="~/Purchase/OpenPDF?id=@Model.deliveryOrderID">Download as PDF</a>
+    <a type="button" class="btn btn-default" href="~/Purchase/OpenPDF?id=@Model.Id">Download as PDF</a>
     <a type="button" class="btn btn-primary" href="~/Purchase/Index">Back</a>
 </div>

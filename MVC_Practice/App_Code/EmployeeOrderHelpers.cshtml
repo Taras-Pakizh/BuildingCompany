@@ -1,4 +1,6 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
 
 @helper EmployeeOrdersList(IEnumerable<EmployeeOrder> Model, bool IsReadonly)
 {
@@ -13,10 +15,10 @@
             <th></th>
         }
     </tr>
-    foreach (var item in Model)
+    foreach (var item in Model.ToList())
     {
         <tr>
-            <td>@item.Employee.firstname @item.Employee.lastname</td>
+            <td>@item.Employee.FirstName @item.Employee.LastName</td>
             <td>@item.OrderType.orderName</td>
             <td>@item.orderDate</td>
             <td>
@@ -47,7 +49,7 @@
 @helper DetailedEmployeeOrder(EmployeeOrder model)
 {
     <div class="container-fluid">
-        <h4>Employee: @model.Employee.firstname @model.Employee.lastname</h4>
+        <h4>Employee: @model.Employee.FirstName @model.Employee.LastName</h4>
         <h4>Order type: @model.OrderType.orderName</h4>
         <h4>Date: @model.orderDate</h4>
     </div>

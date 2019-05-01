@@ -1,4 +1,6 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
 @model IEnumerable<Department>
 @{
     ViewBag.Title = "Departments";
@@ -19,10 +21,12 @@
             <div class="row">
 
                 <div class="form-group">
-                    <input class="form-control" type="text" name="dname" placeholder="Department" required>
+                    <input class="form-control" type="text" name="Name" placeholder="Department" required>
                 </div>
 
-                
+                <div class="form-group">
+                    <input class="form-control" type="text" name="Address" placeholder="Address" required />
+                </div>
 
                 <div class="form-group">
                     <input type="submit" value="Add" class="btn btn-primary form-control" />

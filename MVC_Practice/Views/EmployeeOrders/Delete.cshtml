@@ -1,4 +1,7 @@
-﻿@using MVC_Practice.Models.DbModels
+﻿@*@using MVC_Practice.Models.DbModels*@
+@using CourseworkBD.DAL.DbContext;
+@using CourseworkBD.DAL.Models;
+
 @model EmployeeOrder
 @{
     IEnumerable<EmployeeOrder> order = new List<EmployeeOrder>() { Model };

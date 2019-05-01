@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using MVC_Practice.Models.DbModels;
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 using MVC_Practice.Models.ViewModels;
 
@@ -16,7 +18,7 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, Storage man")]
     public class ShipmentController : Controller
     {
-        private DbModels context;
+        private CourseworkDBContext context;
 
         private SelectList storages;
 
@@ -24,7 +26,7 @@ namespace MVC_Practice.Controllers
 
         public ShipmentController() : base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
             
             storages = new SelectList(context.Storages, "storageID", "storageAddres");
 
@@ -59,19 +61,19 @@ namespace MVC_Practice.Controllers
         [HttpGet]
         public ActionResult OpenOrder(int? id)
         {
-            var order = context.DeliveryOrders.Find(id);
+            var order = context.Orders.Find(id);
             if (order == null)
                 return HttpNotFound();
 
-            
-            var items = context.DeliverysContents.Where(x => x.deliveryOrderID == id);
+
+            var items = context.DeliveryContents.Where(x => x.Order.Id == id).ToList();
             
             var itemsCheck = new List<bool>();
 
             foreach(var item in items)
             {
-                var shipments = context.ShipmentToStorages.Where(x => x.contentID == item.contentID);
-                if (shipments.Count() == 0 || shipments.Sum(s => s.resourceAmount) < item.contentAmount)
+                var shipments = context.ShipmentToStorages.Where(x => x.contentID == item.Id).ToList();
+                if (shipments.Count() == 0 || shipments.Sum(s => s.resourceAmount) < item.Amount)
                 {
                     itemsCheck.Add(false);
                 }
@@ -82,7 +84,7 @@ namespace MVC_Practice.Controllers
             ViewBag.items = items;
             ViewBag.isItemsStored = itemsCheck;
 
-            var count = context.ShipmentToStorages.Where(x => x.DeliverysContent.DeliveryOrder.deliveryOrderID == id).Count();
+            var count = context.ShipmentToStorages.Where(x => x.DeliverysContent.Order.Id == id).Count();
             if (count == 0)
                 ViewBag.isAllNotStored = true;
             else ViewBag.isAllNotStored = false;
@@ -93,13 +95,13 @@ namespace MVC_Practice.Controllers
         [HttpGet]
         public ActionResult OpenItem(int? id)
         {
-            var item = context.DeliverysContents.Find(id);
+            var item = context.DeliveryContents.Find(id);
             if (item == null)
                 return HttpNotFound();
 
             ViewBag.storages = storages;
             ViewBag.min = 1;
-            ViewBag.max = item.contentAmount;
+            ViewBag.max = item.Amount;
             if(context.ShipmentToStorages.Count(x=>x.contentID == id) > 0)
             {
                 ViewBag.max -= context.ShipmentToStorages.Where(x => x.contentID == id).Sum(y => y.resourceAmount);
@@ -113,14 +115,14 @@ namespace MVC_Practice.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (context.DeliveryOrders.Find(model.orderID) == null ||
+                if (context.Orders.Find(model.orderID) == null ||
                     context.Storages.Find(model.storageID) == null)
                     return HttpNotFound();
                 
                 var rows = context.Database.ExecuteSqlCommand("proc_AllDeliveryToStorage @deliveryID, @storageID, @date",
                     new SqlParameter("@deliveryID", model.orderID),
                     new SqlParameter("@storageID", model.storageID),
-                    new SqlParameter("@date", model.date.ToString())
+                    new SqlParameter("@date", ((DateTime)(model.date)).ToShortDateString())
                 );
 
                 if (rows == 0)
@@ -137,7 +139,9 @@ namespace MVC_Practice.Controllers
             {
                 var shipment = new ShipmentToStorage()
                 {
-                    contentID = model.contentID, resourceAmount = model.amount, shipmentDate = model.date,
+                    contentID = model.contentID,
+                    resourceAmount = model.amount,
+                    shipmentDate = model.date,
                     resourceStorageID = context.Resources_Storages.Where(
                         x=>x.resourceID == model.resourceID && 
                         x.storageID == model.storageID).First().resourceStorageID
@@ -153,7 +157,7 @@ namespace MVC_Practice.Controllers
                         HttpNotFound();
                     }
                 }
-                var orderID = context.DeliverysContents.Find(model.contentID).DeliveryOrder.deliveryOrderID;
+                var orderID = context.DeliveryContents.Find(model.contentID).Order.Id;
                 return RedirectToAction("OpenOrder", new { id = orderID });
             }
             return HttpNotFound();
@@ -231,7 +235,7 @@ namespace MVC_Practice.Controllers
                 .Where(x => x.contentID == model.contentID && x.shipmentToStorageID != model.shipmentToStorageID);
 
             ViewBag.min = 1;
-            ViewBag.max = context.DeliverysContents.Find(model.contentID).contentAmount;
+            ViewBag.max = context.DeliveryContents.Find(model.contentID).Amount;
             if(list.Count() > 0)
             {
                 ViewBag.max -= list.Sum(x => x.resourceAmount);

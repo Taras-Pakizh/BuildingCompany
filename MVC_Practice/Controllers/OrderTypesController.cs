@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
-using MVC_Practice.Models.DbModels;
+using CourseworkBD.DAL.DbContext;
+using CourseworkBD.DAL.Models;
+//using MVC_Practice.Models.DbModels;
 using MVC_Practice.Repository;
 using System.Threading.Tasks;
 
@@ -14,11 +15,11 @@ namespace MVC_Practice.Controllers
     [Authorize(Roles = "admin, HR")]
     public class OrderTypesController : Controller
     {
-        DbModels context;
+        CourseworkDBContext context;
 
         public OrderTypesController() : base()
         {
-            context = new DbModels();
+            context = new CourseworkDBContext();
 
             var tabCreator = new TabCreator("HR");
             tabCreator.ChooseTab("Order types");
