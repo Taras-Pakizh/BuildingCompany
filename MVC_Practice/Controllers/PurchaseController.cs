@@ -38,16 +38,16 @@ namespace MVC_Practice.Controllers
 
             foreach(var order in context.DeliveryOrders)
             {
-                foreach(var item in order.DeliverysContents)
+                isStoraged.Add(true);
+                foreach (var item in order.DeliverysContents)
                 {
                     var shipments = context.ShipmentToStorages.Where(x => x.contentID == item.contentID);
                     if (shipments.Count() == 0 || shipments.Sum(x => x.resourceAmount) < item.contentAmount)
                     {
-                        isStoraged.Add(false);
+                        isStoraged[isStoraged.Count - 1] = false;
                         break;
                     }
                 }
-                isStoraged.Add(true);
             }
 
             ViewBag.isStoraged = isStoraged;
